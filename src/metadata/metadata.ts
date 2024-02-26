@@ -33,3 +33,5 @@ function getMetadata() {
     timestamp: new Date().toISOString(),
   };
 }
+
+export { getMetadata };
