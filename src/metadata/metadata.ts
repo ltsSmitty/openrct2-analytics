@@ -1,5 +1,14 @@
 import { pluginVersion } from "../config";
-import { v4 as uuidv4 } from "uuid";
+
+function generateUID() {
+  // I generate the UID from two parts here
+  // to ensure the random number provide enough bits.
+  let firstPart = (Math.random() * 46656) | 0;
+  let secondPart = (Math.random() * 46656) | 0;
+  firstPart = +("000" + firstPart.toString(36)).slice(-3);
+  secondPart = +("000" + secondPart.toString(36)).slice(-3);
+  return firstPart + secondPart;
+}
 
 function getMetadata() {
   // todo id
@@ -29,7 +38,7 @@ function getMetadata() {
       },
       // language could be nice, but isn't exposed
     },
-    messageID: uuidv4(),
+    messageID: generateUID(),
     timestamp: new Date().toISOString(),
   };
 }

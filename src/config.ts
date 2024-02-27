@@ -1,6 +1,6 @@
 export const pluginVersion = "0.0.1";
 
-export const dataKey = "analytics-data";
+export const dataKey = "analytics.data.storage";
 
 // potentially to use for creating and saving some kind of park ID.
 // unfortunately I'm feeling stuck in creating an idempotent method of creating them.

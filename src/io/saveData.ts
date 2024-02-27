@@ -6,6 +6,7 @@ type savedDataShape = {
 };
 
 export const saveEventData = (data: TrackEventType | TrackEventType[]) => {
+  console.log("Saving data");
   const oldData = context.sharedStorage.get(dataKey, {}) as savedDataShape;
 
   if (Array.isArray(data)) {

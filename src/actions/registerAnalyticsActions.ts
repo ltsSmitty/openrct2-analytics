@@ -2,16 +2,14 @@ import { analyticsSubscriptionName } from "../config";
 import { saveEventData } from "../io/saveData";
 import { TrackEventType } from "../track/track";
 
-export const addAnalyticsActions = () => {
+export const registerAnalyticsActions = () => {
+  console.log("Registering analytics actions", analyticsSubscriptionName);
   context.registerAction(
     analyticsSubscriptionName,
-    (data) => {
-      const trackData = data as TrackEventType;
+    (_data) => {
       // todo check if analytics is enabled
       if (true) {
-        return {
-          args: trackData,
-        } as GameActionResult;
+        return {} as GameActionResult;
       }
       return {
         error: 1,
@@ -20,9 +18,9 @@ export const addAnalyticsActions = () => {
       } as GameActionResult;
     },
     (data) => {
-      const trackData = data as TrackEventType;
-      saveEventData(trackData);
-      return { args: trackData } as GameActionResult;
+      const trackData = data as { args: TrackEventType };
+      saveEventData(trackData.args);
+      return {} as GameActionResult;
     }
   );
 };
