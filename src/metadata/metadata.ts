@@ -36,6 +36,7 @@ function getMetadata() {
         networkMode: network.mode,
         // add potentially other network info, like player id, etc.
       },
+      mode: context.mode,
       // language could be nice, but isn't exposed
     },
     messageID: generateUID(),
