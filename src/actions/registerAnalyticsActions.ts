@@ -3,7 +3,10 @@ import { saveEventData } from "../io/saveData";
 import { TrackEventType } from "../objects/analytics";
 
 export const registerAnalyticsActions = () => {
-  console.log("Registering analytics actions", analyticsSubscriptionName);
+  console.log(
+    "Registering analytics actions under the name",
+    analyticsSubscriptionName
+  );
   context.registerAction(
     analyticsSubscriptionName,
     (_data) => {
