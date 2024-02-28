@@ -1,6 +1,6 @@
 import { analyticsSubscriptionName } from "../config";
 import { saveEventData } from "../io/saveData";
-import { TrackEventType } from "../track/track";
+import { TrackEventType } from "../objects/analytics";
 
 export const registerAnalyticsActions = () => {
   console.log("Registering analytics actions", analyticsSubscriptionName);

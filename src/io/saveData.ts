@@ -1,5 +1,5 @@
 import { dataKey } from "../config";
-import { TrackEventType } from "../track/track";
+import { TrackEventType } from "../objects/analytics";
 
 type savedDataShape = {
   [eventName: string]: TrackEventType[];

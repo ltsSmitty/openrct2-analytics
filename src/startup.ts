@@ -1,6 +1,5 @@
-import { registerAnalyticsActions } from "./actions/registerAnalyticsActions";
 import { analyticsSubscriptionName } from "./config";
-import { onParkChange } from "./hooks/onParkChange";
+import { analytics } from "./objects/analytics";
 
 function onClickMenuItem() {
   // Write code here that should happen when the player clicks the menu item under the map icon.
@@ -12,9 +11,8 @@ function onClickMenuItem() {
 
 export function startup() {
   // Register a menu item under the map icon:
-  registerAnalyticsActions();
-  onParkChange();
 
+  analytics.init();
   context.subscribe("action.execute", (data) => {
     if (data.action === analyticsSubscriptionName) {
       // console.log("Analytics data", data);
