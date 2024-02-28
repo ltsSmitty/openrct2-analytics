@@ -1,4 +1,5 @@
 import { registerAnalyticsActions } from "../actions/registerAnalyticsActions";
+import { analyticsSubscriptionName } from "../config";
 import { onParkChange } from "../hooks/onParkChange";
 import { saveEventData } from "../io/saveData";
 import { getMetadata } from "../metadata/metadata";
@@ -50,7 +51,7 @@ class Analytics {
 
   flush() {
     console.log("Flushing events", this.eventQueue.length);
-    saveEventData(this.eventQueue);
+    context.executeAction(analyticsSubscriptionName, this.eventQueue);
     this.eventQueue = [];
   }
 

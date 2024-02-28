@@ -18,7 +18,7 @@ export const registerAnalyticsActions = () => {
       } as GameActionResult;
     },
     (data) => {
-      const trackData = data as { args: TrackEventType };
+      const trackData = data as { args: TrackEventType[] };
       saveEventData(trackData.args);
       return {} as GameActionResult;
     }
