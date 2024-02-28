@@ -1,8 +1,19 @@
-import { registerAnalyticsActions } from "../actions/registerAnalyticsActions";
-import { analyticsSubscriptionName } from "../config";
-import { onParkChange } from "../hooks/onParkChange";
-import { saveEventData } from "../io/saveData";
 import { getMetadata } from "../metadata/metadata";
+import * as hooks from "../hooks/onParkChange";
+import {
+  mapSavedCallback,
+  titleScreenMapChangedCallback,
+  inGameMapChangeCallback,
+  scenarioEditorMapChangedCallback,
+  trackDesignerMapChangedCallback,
+  trackManagerMapChangedCallback,
+  loadOrQuitCallback,
+} from "../callbacks/baseHelpers";
+import {
+  registerEventEnqueueAction,
+  registerFlushAndSaveEventsAction,
+} from "../actions/registerAnalyticsActions";
+import { analyticsEventEnqueueKey, analyticsFlushAndSaveKey } from "../config";
 
 export type TrackEventType = ReturnType<typeof getMetadata> & {
   properties: TrackEventProps;
@@ -22,6 +33,8 @@ type AnalyticsParams = {
 
 export const eventQueue: TrackEventType[] = [];
 
+const MAX_QUEUE_LENGTH = 1000;
+
 class Analytics {
   // todo future optimization, preallocate array size and reset function to save garagbe collection
   eventQueue: TrackEventType[] = [];
@@ -32,7 +45,9 @@ class Analytics {
       if (params.flushThreshold < 1) {
         throw new Error("Flush threshold must be greater than 0");
       }
-      this.flushThreshold = Math.ceil(Math.min(params.flushThreshold, 1000));
+      this.flushThreshold = Math.ceil(
+        Math.min(params.flushThreshold, MAX_QUEUE_LENGTH)
+      );
     }
   }
 
@@ -43,19 +58,40 @@ class Analytics {
       ...metadata,
       properties: event,
     };
+    // todo implement printDebug
     if (printDebug) {
       console.log(eventData);
     }
-    this.enqueEvent(eventData);
+    // safely call the action to enqueue the event rather than calling it directly
+    // this lets it be disabled or hooked into
+    context.executeAction(analyticsEventEnqueueKey, eventData);
   }
 
   flush() {
     console.log("Flushing events", this.eventQueue.length);
-    context.executeAction(analyticsSubscriptionName, this.eventQueue);
-    this.eventQueue = [];
+    context.executeAction(
+      analyticsFlushAndSaveKey,
+      this.eventQueue,
+      (result) => {
+        if (result.error) {
+          console.log(
+            "Error flushing events",
+            result.errorTitle,
+            result.errorMessage
+          );
+        } else {
+          console.log("Flushed events", this.eventQueue.length);
+          this.eventQueue = [];
+        }
+      }
+    );
   }
 
-  private enqueEvent(event: TrackEventType) {
+  /**
+   * Not to be called directly, but through context.executeAction() for network safety
+   * and hooking into.
+   */
+  enqueEvent(event: TrackEventType) {
     console.log(
       "Enqueing event",
       event.properties.name,
@@ -70,9 +106,20 @@ class Analytics {
     }
   }
 
-  init() {
-    registerAnalyticsActions();
-    onParkChange();
+  init(props?: { registerBaseEvents: boolean }) {
+    registerEventEnqueueAction();
+    registerFlushAndSaveEventsAction();
+
+    // subscribe to some helpful events that many users will never want to do for themselves
+    hooks.onMapSaved(mapSavedCallback);
+    hooks.onMapChanged({
+      titleScreenMapChangedCallback,
+      inGameMapChangeCallback,
+      scenarioEditorMapChangedCallback,
+      trackDesignerMapChangedCallback,
+      trackManagerMapChangedCallback,
+    });
+    hooks.onLoadOrQuit(loadOrQuitCallback);
   }
 }
 

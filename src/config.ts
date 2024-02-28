@@ -6,4 +6,5 @@ export const dataKey = "analytics.data.storage";
 // unfortunately I'm feeling stuck in creating an idempotent method of creating them.
 export const parkIdKey = "analytics-park-id";
 
-export const analyticsSubscriptionName = "analyticsTrack";
+export const analyticsEventEnqueueKey = "analyticsEventEnqueue";
+export const analyticsFlushAndSaveKey = "analyticsFlushAndSave";

@@ -1,14 +1,14 @@
-import { analyticsSubscriptionName } from "../config";
+import { analyticsEventEnqueueKey, analyticsFlushAndSaveKey } from "../config";
 import { saveEventData } from "../io/saveData";
-import { TrackEventType } from "../objects/analytics";
+import { TrackEventType, analytics } from "../objects/analytics";
 
-export const registerAnalyticsActions = () => {
+export const registerEventEnqueueAction = () => {
   console.log(
-    "Registering analytics actions under the name",
-    analyticsSubscriptionName
+    "Registering event enqueue action under the name",
+    analyticsEventEnqueueKey
   );
   context.registerAction(
-    analyticsSubscriptionName,
+    analyticsEventEnqueueKey,
     (_data) => {
       // todo check if analytics is enabled
       if (true) {
@@ -21,9 +21,35 @@ export const registerAnalyticsActions = () => {
       } as GameActionResult;
     },
     (data) => {
-      const trackData = data as { args: TrackEventType[] };
-      saveEventData(trackData.args);
-      return {} as GameActionResult;
+      const eventData = (data as { args: TrackEventType }).args;
+      analytics.enqueEvent(eventData);
+      return { data } as GameActionResult;
+    }
+  );
+};
+
+export const registerFlushAndSaveEventsAction = () => {
+  console.log(
+    "Registering event flushing/saving under the name",
+    analyticsFlushAndSaveKey
+  );
+  context.registerAction(
+    analyticsFlushAndSaveKey,
+    (_data) => {
+      // todo check if analytics is enabled
+      if (true) {
+        return {} as GameActionResult;
+      }
+      return {
+        error: 1,
+        errorTitle: "Analytics Disabled",
+        errorMessage: "Enable the Analytics plugin to use this feature.",
+      } as GameActionResult;
+    },
+    (data) => {
+      const trackedEvents = (data as { args: TrackEventType[] }).args;
+      saveEventData(trackedEvents);
+      return { data } as GameActionResult;
     }
   );
 };

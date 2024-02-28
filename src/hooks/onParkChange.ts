@@ -5,28 +5,36 @@ const onMapSaved = (mapSavedCallback: () => void) => {
 };
 
 const onMapChanged = (props: {
-  titleScreenMapChangedCallback: () => void;
-  inGameMapChangeCallback: () => void;
-  scenarioEditorMapChangedCallback: () => void;
-  trackDesignerMapChangedCallback: () => void;
-  trackManagerMapChangedCallback: () => void;
+  titleScreenMapChangedCallback?: () => void;
+  inGameMapChangeCallback?: () => void;
+  scenarioEditorMapChangedCallback?: () => void;
+  trackDesignerMapChangedCallback?: () => void;
+  trackManagerMapChangedCallback?: () => void;
 }) => {
   context.subscribe("map.changed", () => {
     switch (context.mode) {
       case "title":
-        props.titleScreenMapChangedCallback();
+        props.titleScreenMapChangedCallback
+          ? props.titleScreenMapChangedCallback()
+          : null;
         break;
       case "normal":
-        props.inGameMapChangeCallback();
+        props.inGameMapChangeCallback ? props.inGameMapChangeCallback() : null;
         break;
       case "scenario_editor":
-        props.scenarioEditorMapChangedCallback();
+        props.scenarioEditorMapChangedCallback
+          ? props.scenarioEditorMapChangedCallback()
+          : null;
         break;
       case "track_designer":
-        props.trackDesignerMapChangedCallback();
+        props.trackDesignerMapChangedCallback
+          ? props.trackDesignerMapChangedCallback()
+          : null;
         break;
       default:
-        props.trackManagerMapChangedCallback();
+        props.trackManagerMapChangedCallback
+          ? props.trackManagerMapChangedCallback()
+          : null;
     }
   });
 };
@@ -74,3 +82,5 @@ export const onParkChange = () => {
     }
   });
 };
+
+export { onMapSaved, onMapChanged, onLoadOrQuit };

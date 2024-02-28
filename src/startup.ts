@@ -1,4 +1,3 @@
-import { analyticsSubscriptionName } from "./config";
 import { analytics } from "./objects/analytics";
 
 function onClickMenuItem() {
@@ -13,11 +12,6 @@ export function startup() {
   // Register a menu item under the map icon:
 
   analytics.init();
-  context.subscribe("action.execute", (data) => {
-    if (data.action === analyticsSubscriptionName) {
-      // console.log("Analytics data", data);
-    }
-  });
 
   if (typeof ui !== "undefined") {
     ui.registerMenuItem("Analytics", () => onClickMenuItem());
