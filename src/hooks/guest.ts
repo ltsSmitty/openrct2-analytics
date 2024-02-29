@@ -74,27 +74,38 @@ export type StaffHireArgs = GameActionEventArgs & {
   action: "staffhire";
   args: {
     autoPosition: boolean;
-    staffType: number;
+    staffType: StaffType;
     staffId: number;
     entertainerType: number;
     staffOrders: number;
     flags: number;
   };
   result: GameActionResult & {
-    staffId: number;
+    expenditureType: "wages";
+    peep: number;
   };
 };
 
 export const onStaffHire = (callback: (staff: StaffHireArgs) => void) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffHireArgs;
     if (data.action === "staffhire") {
       callback(data);
     }
   });
 };
 
+export type StaffFireArgs = GameActionEventArgs & {
+  action: "stafffire";
+  args: {
+    id: number;
+    flags: number;
+  };
+};
+
 export const onStaffFire = (callback: (staff: StaffFireArgs) => void) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffFireArgs;
     if (data.action === "stafffire") {
       callback(data);
     }

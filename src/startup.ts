@@ -15,7 +15,8 @@ export function startup() {
   analytics.init();
   // hooks.guest.onGuestGenerated(cb);
   // hooks.guest.onPeepPickup(cb);
-  hooks.guest.onStaffHire(cb);
+  // hooks.guest.onStaffHire(cb);
+  // hooks.guest.onStaffFire(cb);
   if (typeof ui !== "undefined") {
     ui.registerMenuItem("Analytics", () => onClickMenuItem());
   }
