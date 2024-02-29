@@ -1,5 +1,5 @@
 import { getMetadata } from "../metadata/metadata";
-import * as hooks from "../hooks/onParkChange";
+import * as hooks from "../hooks/parkChange";
 import {
   mapSavedCallback,
   titleScreenMapChangedCallback,
@@ -112,13 +112,8 @@ class Analytics {
 
     // subscribe to some helpful events that many users will never want to do for themselves
     hooks.onMapSaved(mapSavedCallback);
-    hooks.onMapChanged({
-      titleScreenMapChangedCallback,
-      inGameMapChangeCallback,
-      scenarioEditorMapChangedCallback,
-      trackDesignerMapChangedCallback,
-      trackManagerMapChangedCallback,
-    });
+    hooks.onTitleScreenMapChanged(titleScreenMapChangedCallback);
+    hooks.onInGameMapChanged(inGameMapChangeCallback);
     hooks.onLoadOrQuit(loadOrQuitCallback);
   }
 }
