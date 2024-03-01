@@ -6,8 +6,20 @@ export const onGuestGenerated = (
   });
 };
 
+export type GuestSetNameArgs = GameActionEventArgs & {
+  action: "guestsetname";
+  args: {
+    peep: number;
+    name: string;
+    flags: number;
+  };
+  result: GameActionResult & {
+    position: CoordsXYZ;
+  };
+};
 export const onGuestSetName = (callback: (guest: GuestSetNameArgs) => void) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as GuestSetNameArgs;
     if (data.action === "guestsetname") {
       callback(data);
     }
