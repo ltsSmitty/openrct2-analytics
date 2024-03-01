@@ -1,5 +1,3 @@
-import { analytics } from "../objects/analytics";
-
 export const onMapSaved = (callback: () => void) => {
   context.subscribe("map.save", callback);
 };
@@ -27,12 +25,5 @@ export const onLoadOrQuit = (
     if (data.action === "loadorquit") {
       loadOrQuitCallback(data);
     }
-  });
-};
-
-export const onParkChange = () => {
-  context.subscribe("map.save", () => {
-    analytics.track("Map saved");
-    analytics.flush();
   });
 };
