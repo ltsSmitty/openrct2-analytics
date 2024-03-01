@@ -132,8 +132,21 @@ export const onStaffSetColour = (
   });
 };
 
+export type StaffSetNameArgs = GameActionEventArgs & {
+  action: "staffsetname";
+  args: {
+    id: number;
+    name: string;
+    flags: number;
+  };
+  result: GameActionResult & {
+    position: CoordsXYZ;
+  };
+};
+
 export const onStaffSetName = (callback: (staff: StaffSetNameArgs) => void) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffSetNameArgs;
     if (data.action === "staffsetname") {
       callback(data);
     }
@@ -155,7 +168,8 @@ export type StaffSetCostumeArgs = GameActionEventArgs & {
 export const onStaffSetCostume = (
   callback: (staff: StaffSetCostumeArgs) => void
 ) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffSetCostumeArgs;
     if (data.action === "staffsetcostume") {
       callback(data);
     }
