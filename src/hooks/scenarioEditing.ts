@@ -1,8 +1,24 @@
+export type PlacePeepSpawnArgs = GameActionEventArgs & {
+  action: "peepspawnplace";
+  args: {
+    x: number;
+    y: number;
+    z: number;
+    direction: number;
+    flags: number;
+  };
+  result: GameActionResult & {
+    position: CoordsXYZ;
+    expenditureType: "land_purchase";
+  };
+};
+
 export const onPlacePeepSpawn = (
   callback: (guest: PlacePeepSpawnArgs) => void
 ) => {
-  context.subscribe("action.execute", (data) => {
-    if (data.action === "placepeepspawn") {
+  context.subscribe("action.execute", (d) => {
+    const data = d as PlacePeepSpawnArgs;
+    if (data.action === "peepspawnplace") {
       callback(data);
     }
   });
@@ -38,6 +54,21 @@ export const onMapSizeChange = (callback: () => void) => {
       callback();
     }
   });
+};
+
+export enum ClimateType {
+  "Cool and wet",
+  "Warm",
+  "Hot and dry",
+  "Cold",
+}
+
+export type ClimateSetArgs = GameActionEventArgs & {
+  action: "climateset";
+  args: {
+    climate: ClimateType;
+    flags: number;
+  };
 };
 
 export const onClimateSet = (callback: (args: ClimateSetArgs) => void) => {

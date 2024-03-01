@@ -1,15 +1,6 @@
 import { getMetadata } from "../metadata/metadata";
 import * as hooks from "../hooks/parkChange";
 import {
-  mapSavedCallback,
-  titleScreenMapChangedCallback,
-  inGameMapChangeCallback,
-  scenarioEditorMapChangedCallback,
-  trackDesignerMapChangedCallback,
-  trackManagerMapChangedCallback,
-  loadOrQuitCallback,
-} from "../callbacks/baseHelpers";
-import {
   registerEventEnqueueAction,
   registerFlushAndSaveEventsAction,
 } from "../actions/registerAnalyticsActions";
@@ -111,10 +102,10 @@ class Analytics {
     registerFlushAndSaveEventsAction();
 
     // subscribe to some helpful events that many users will never want to do for themselves
-    hooks.onMapSaved(mapSavedCallback);
-    hooks.onTitleScreenMapChanged(titleScreenMapChangedCallback);
-    hooks.onInGameMapChanged(inGameMapChangeCallback);
-    hooks.onLoadOrQuit(loadOrQuitCallback);
+    // hooks.onMapSaved(mapSavedCallback);
+    // hooks.onTitleScreenMapChanged(titleScreenMapChangedCallback);
+    // hooks.onInGameMapChanged(inGameMapChangeCallback);
+    // hooks.onLoadOrQuit(loadOrQuitCallback);
   }
 }
 
