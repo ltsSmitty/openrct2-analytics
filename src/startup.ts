@@ -19,7 +19,8 @@ export function startup() {
   // hooks.guest.onStaffFire(cb);
   // hooks.guest.onStaffSetColour(cb);
   // hooks.guest.onStaffSetCostume(cb);
-  hooks.guest.onStaffSetName(cb);
+  // hooks.guest.onStaffSetName(cb);
+  // hooks.guest.onStaffSetOrders(cb)
   if (typeof ui !== "undefined") {
     ui.registerMenuItem("Analytics", () => onClickMenuItem());
   }

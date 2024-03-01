@@ -176,10 +176,43 @@ export const onStaffSetCostume = (
   });
 };
 
+export enum MechanicOrderFlags {
+  None = 0,
+  InspectRides = 1,
+  FixRides = 2,
+}
+
+export enum HandymanOrderFlags {
+  None = 0,
+  SweepFootpaths = 1,
+  WaterGardens = 2,
+  EmptyBins = 4,
+  MowGrass = 8,
+}
+
+export type StaffSetOrdersArgs = GameActionEventArgs & {
+  action: "staffsetorders";
+  args: {
+    id: number;
+    /**
+     * This is a flag value that is made by summing the respective flags for the staff.
+     * To have a handyman that does all the tasks, the staffOrders value would be 15 (1 + 2 + 4 + 8)
+     * To have a mechanic that does all the tasks, the staffOrders value would be 3 (1 + 2)
+     * To have a mechanic that only inspects rides, the staffOrders value would be 1, etc.
+     */
+    staffOrders: MechanicOrderFlags | HandymanOrderFlags;
+    flags: number;
+  };
+  result: GameActionResult & {
+    position: CoordsXYZ;
+  };
+};
+
 export const onStaffSetOrders = (
   callback: (staff: StaffSetOrdersArgs) => void
 ) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffSetOrdersArgs;
     if (data.action === "staffsetorders") {
       callback(data);
     }
