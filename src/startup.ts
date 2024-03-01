@@ -22,7 +22,8 @@ export function startup() {
   // hooks.guest.onStaffSetName(cb);
   // hooks.guest.onStaffSetOrders(cb)
   // hooks.guest.onStaffSetPatrolArea(cb);
-  hooks.guest.onGuestSetName(cb);
+  // hooks.guest.onGuestSetName(cb);
+  hooks.guest.onGuestSetFlags(cb);
   if (typeof ui !== "undefined") {
     ui.registerMenuItem("Analytics", () => onClickMenuItem());
   }

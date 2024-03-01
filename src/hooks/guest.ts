@@ -26,11 +26,29 @@ export const onGuestSetName = (callback: (guest: GuestSetNameArgs) => void) => {
   });
 };
 
+export enum GuestFlags {
+  // todo understand what the others are
+  TrackGuest = 8,
+}
+
+export type GuestSetFlagsArgs = GameActionEventArgs & {
+  action: "guestsetflags";
+  args: {
+    peep: number;
+    guestFlags: GuestFlags;
+    flags: number;
+  };
+  result: GameActionResult & {
+    position: CoordsXYZ;
+  };
+};
+
 // todo
 export const onGuestSetFlags = (
   callback: (guest: GuestSetFlagsArgs) => void
 ) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as GuestSetFlagsArgs;
     if (data.action === "guestsetflags") {
       callback(data);
     }
