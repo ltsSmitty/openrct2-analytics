@@ -112,10 +112,20 @@ export const onStaffFire = (callback: (staff: StaffFireArgs) => void) => {
   });
 };
 
+export type StaffSetColourArgs = GameActionEventArgs & {
+  action: "staffsetcolour";
+  args: {
+    staffType: StaffType;
+    colour: number;
+    flags: number;
+  };
+};
+
 export const onStaffSetColour = (
   callback: (staff: StaffSetColourArgs) => void
 ) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffSetColourArgs;
     if (data.action === "staffsetcolour") {
       callback(data);
     }
@@ -128,6 +138,18 @@ export const onStaffSetName = (callback: (staff: StaffSetNameArgs) => void) => {
       callback(data);
     }
   });
+};
+
+export type StaffSetCostumeArgs = GameActionEventArgs & {
+  action: "staffsetcostume";
+  args: {
+    id: number;
+    costume: number;
+    flags: number;
+  };
+  result: GameActionResult & {
+    position: CoordsXYZ;
+  };
 };
 
 export const onStaffSetCostume = (
