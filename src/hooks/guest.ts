@@ -219,10 +219,29 @@ export const onStaffSetOrders = (
   });
 };
 
+export enum StaffPatrolMode {
+  PatrolThisArea = 0,
+  SkipThisArea = 1,
+}
+
+export type StaffSetPatrolAreaArgs = GameActionEventArgs & {
+  action: "staffsetpatrolarea";
+  args: {
+    id: number;
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    mode: StaffPatrolMode;
+    flags: number;
+  };
+};
+
 export const onStaffSetPatrolArea = (
   callback: (staff: StaffSetPatrolAreaArgs) => void
 ) => {
-  context.subscribe("action.execute", (data) => {
+  context.subscribe("action.execute", (d) => {
+    const data = d as StaffSetPatrolAreaArgs;
     if (data.action === "staffsetpatrolarea") {
       callback(data);
     }

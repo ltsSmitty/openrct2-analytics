@@ -21,6 +21,7 @@ export function startup() {
   // hooks.guest.onStaffSetCostume(cb);
   // hooks.guest.onStaffSetName(cb);
   // hooks.guest.onStaffSetOrders(cb)
+  hooks.guest.onStaffSetPatrolArea(cb);
   if (typeof ui !== "undefined") {
     ui.registerMenuItem("Analytics", () => onClickMenuItem());
   }
