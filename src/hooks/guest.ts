@@ -26,16 +26,11 @@ export const onGuestSetName = (callback: (guest: GuestSetNameArgs) => void) => {
   });
 };
 
-export enum GuestFlags {
-  // todo understand what the others are
-  TrackGuest = 8,
-}
-
 export type GuestSetFlagsArgs = GameActionEventArgs & {
   action: "guestsetflags";
   args: {
     peep: number;
-    guestFlags: GuestFlags;
+    guestFlags: PeepFlags; // bitwise flags
     flags: number;
   };
   result: GameActionResult & {
@@ -43,7 +38,6 @@ export type GuestSetFlagsArgs = GameActionEventArgs & {
   };
 };
 
-// todo
 export const onGuestSetFlags = (
   callback: (guest: GuestSetFlagsArgs) => void
 ) => {
@@ -59,7 +53,7 @@ enum PeepPickupType {
   PickUp = 0,
   SetDown = 1,
   /**
-   * Gets called before dropping, but then type 1 always get called afterwards
+   * Gets called when the guest is dropped, but then type 1 always get called afterwards
    * could be some sort of query, but it's not clear what it's querying
    */
   Unknown = 2,
@@ -100,7 +94,7 @@ export const onPeepSetDown = (callback: (guest: PeepPickupArgs) => void) => {
   });
 };
 
-export type StaffHireArgs = GameActionEventArgs & {
+export type StaffHiredArgs = GameActionEventArgs & {
   action: "staffhire";
   args: {
     autoPosition: boolean;
@@ -116,16 +110,16 @@ export type StaffHireArgs = GameActionEventArgs & {
   };
 };
 
-export const onStaffHire = (callback: (staff: StaffHireArgs) => void) => {
+export const onStaffHire = (callback: (staff: StaffHiredArgs) => void) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as StaffHireArgs;
+    const data = d as StaffHiredArgs;
     if (data.action === "staffhire") {
       callback(data);
     }
   });
 };
 
-export type StaffFireArgs = GameActionEventArgs & {
+export type StaffFiredArgs = GameActionEventArgs & {
   action: "stafffire";
   args: {
     id: number;
@@ -133,9 +127,9 @@ export type StaffFireArgs = GameActionEventArgs & {
   };
 };
 
-export const onStaffFire = (callback: (staff: StaffFireArgs) => void) => {
+export const onStaffFire = (callback: (staff: StaffFiredArgs) => void) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as StaffFireArgs;
+    const data = d as StaffFiredArgs;
     if (data.action === "stafffire") {
       callback(data);
     }
