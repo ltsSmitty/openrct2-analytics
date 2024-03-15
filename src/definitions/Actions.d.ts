@@ -93,6 +93,7 @@ interface WallPlaceArgs extends PlaceActionArgs {
 
 type RemoveAction =
   | "bannerremove"
+  | "clearscenery"
   | "rideentranceexitremove"
   | "footpathremove"
   | "footpathadditionremove"
@@ -110,6 +111,15 @@ interface RemoveActionArgs {
 
 interface BannerRemoveArgs extends RemoveActionArgs {
   readonly direction: number;
+}
+
+interface ClearSceneryArgs {
+  readonly flags?: number;
+  readonly x1: number;
+  readonly y1: number;
+  readonly x2: number;
+  readonly y2: number;
+  readonly itemsToClear: number;
 }
 
 interface EntranceRemoveArgs extends RemoveActionArgs {
@@ -156,6 +166,7 @@ interface ActionData<S extends ActionType, T extends object> {
  */
 
 type BannerPlaceActionData = ActionData<"bannerplace", BannerPlaceArgs>;
+type ClearSceneryActionData = ActionData<"clearscenery", ClearSceneryArgs>;
 type EntrancePlaceActionData = ActionData<
   "rideentranceexitplace",
   EntrancePlaceArgs
