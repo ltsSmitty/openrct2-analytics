@@ -1,9 +1,9 @@
-import { pluginVersion } from "./config";
+import { config } from "./config";
 import { startup } from "./startup";
 
 registerPlugin({
   name: "Analytics",
-  version: pluginVersion,
+  version: config.pluginVersion,
   authors: ["ltsSmitty"],
   type: "intransient",
   licence: "MIT",

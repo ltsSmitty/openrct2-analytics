@@ -63,6 +63,7 @@ const config = {
     format: "iife",
     compact: true,
   },
+  external: ["openrct2-analytics"],
   treeshake: "smallest",
   plugins: [
     resolve(),
