@@ -1,3 +1,4 @@
+import { EntranceRemoveArgs } from "../hooks/scenarioEditing";
 import { analytics } from "../objects/analytics";
 
 export const titleScreenMapChangedCallback = () => {
@@ -20,14 +21,14 @@ export const mapSizeChangeCallback = () => {
   analytics.track("Map size changed");
 };
 
-export const climateSetCallback = (args: hooks.ClimateSetArgs) => {
+export const climateSetCallback = (args: ClimateSetArgs) => {
   analytics.track({
     name: "Climate set",
     properties: args,
   });
 };
 
-export const parkEntranceRemovedCallback = (args: hooks.EntranceRemoveArgs) => {
+export const parkEntranceRemovedCallback = (args: EntranceRemoveArgs) => {
   analytics.track({
     name: "Park entrance removed",
     properties: args,

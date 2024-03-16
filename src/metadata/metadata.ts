@@ -10,7 +10,7 @@ function generateUID() {
   return firstPart + secondPart;
 }
 
-function getMetadata() {
+function getMetadata(pluginName: string) {
   // todo id
   return {
     context: {
@@ -31,6 +31,7 @@ function getMetadata() {
       library: {
         pluginVersion,
         apiVersion: context.apiVersion,
+        eventPluginSource: pluginName,
       },
       network: {
         networkMode: network.mode,

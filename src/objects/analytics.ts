@@ -1,5 +1,4 @@
 import { getMetadata } from "../metadata/metadata";
-import * as hooks from "../hooks/parkChange";
 import {
   registerEventEnqueueAction,
   registerFlushAndSaveEventsAction,
@@ -19,7 +18,7 @@ type AnalyticsParams = {
   /** The number of events to queue before flushing. Set to 1 to flush after every event.
    * May impact performance if set too low.
    */
-  flushThreshold: number;
+  flushThreshold?: number;
 };
 
 export const eventQueue: TrackEventType[] = [];
@@ -30,9 +29,10 @@ class Analytics {
   // todo future optimization, preallocate array size and reset function to save garagbe collection
   eventQueue: TrackEventType[] = [];
   flushThreshold: number = 25;
+  pluginName: string = "openRCT2-analytics-sdk";
 
-  constructor(params?: AnalyticsParams) {
-    if (params) {
+  constructor(params: AnalyticsParams) {
+    if (params.flushThreshold) {
       if (params.flushThreshold < 1) {
         throw new Error("Flush threshold must be greater than 0");
       }
@@ -43,7 +43,7 @@ class Analytics {
   }
 
   track<T extends TrackEventProps>(props: string | T, printDebug = false) {
-    const metadata = getMetadata();
+    const metadata = getMetadata(this.pluginName);
     const event = typeof props === "string" ? { name: props } : props;
     const eventData = {
       ...metadata,
@@ -97,7 +97,8 @@ class Analytics {
     }
   }
 
-  init(props?: { registerBaseEvents: boolean }) {
+  init(props: { pluginName: string; registerBaseEvents?: boolean }) {
+    this.pluginName = props.pluginName;
     registerEventEnqueueAction();
     registerFlushAndSaveEventsAction();
 
