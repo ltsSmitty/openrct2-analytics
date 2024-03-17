@@ -7,9 +7,9 @@ import { promisify } from "util";
 
 const options = {
   /**
-   * Change the file name of the output file here.
+   * The filename of the output, taken from info.js
    */
-  filename: "analytics.js",
+  filename: `analytics-base.js`,
 
   /**
    * Determines in what build mode the plugin should be build. The default here takes
@@ -46,8 +46,8 @@ async function getOutput() {
   } else if (platform === "darwin") {
     // MacOS
     return `${homedir()}/Library/Application Support/${pluginPath}`;
-  } // Linux
-  else {
+  } else {
+    // Linux
     const configFolder = process.env.XDG_CONFIG_HOME || `${homedir()}/.config`;
     return `${configFolder}/${pluginPath}`;
   }
@@ -63,7 +63,6 @@ const config = {
     format: "iife",
     compact: true,
   },
-  external: ["openrct2-analytics"],
   treeshake: "smallest",
   plugins: [
     resolve(),
