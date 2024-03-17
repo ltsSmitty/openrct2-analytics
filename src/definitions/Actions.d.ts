@@ -1,37 +1,29 @@
-type SceneryAction = ActionType &
-  (
-    | "clearscenery"
-    | "landlower"
-    | "landraise"
-    | "landsetheight"
-    | "landsetrights"
-    | "landsmooth"
-    | "largesceneryplace"
-    | "largesceneryremove"
-    | "largescenerysetcolour"
-    | "smallsceneryplace"
-    | "smallsceneryremove"
-    | "surfacesetstyle"
-    | "tilemodify"
-    | "wallplace"
-    | "wallremove"
-    | "wallsetcolour"
-    | "waterlower"
-    | "waterraise"
-    | "watersetheight"
-  );
-
-type TSceneryTypeMap<S extends SceneryAction, T extends object> = {
-  [key in S]: T;
-};
-
-interface ActionData<S extends ActionType, T extends object> {
+interface ActionData<
+  S extends ActionType,
+  T extends object,
+  TMainExpenditureType extends ExpenditureType | undefined = undefined,
+  TExpenditureType extends ExpenditureType | undefined = TMainExpenditureType
+> {
   readonly action: S;
   readonly args: T;
+  readonly player: number;
+  readonly type: number;
+  readonly isClientOnly: boolean;
+  readonly result: GameActionResult & {
+    readonly expenditureType?: TExpenditureType;
+  };
 }
 
-interface SceneryTypeMap
-  extends TSceneryTypeMap<SceneryAction, ActionData<SceneryAction, object>> {
+interface LandscapingTypeMap
+  extends Record<
+    LandscapeAction,
+    ActionData<
+      LandscapeAction,
+      object,
+      "landscaping",
+      ExpenditureType | undefined
+    >
+  > {
   clearscenery: ActionData<"clearscenery", ClearSceneryArgs>;
   landlower: ActionData<"landlower", LandLowerArgs>;
   landraise: ActionData<"landraise", LandRaiseArgs>;
@@ -46,6 +38,8 @@ interface SceneryTypeMap
   >;
   smallsceneryplace: ActionData<"smallsceneryplace", SmallSceneryPlaceArgs>;
   smallsceneryremove: ActionData<"smallsceneryremove", SmallSceneryRemoveArgs>;
+  signsetname: ActionData<"signsetname", SignSetNameArgs, undefined>;
+  signsetstyle: ActionData<"signsetstyle", SignSetStyleArgs, undefined>;
   surfacesetstyle: ActionData<"surfacesetstyle", SurfaceSetStyleArgs>;
   tilemodify: ActionData<"tilemodify", TileModifyArgs>;
   wallplace: ActionData<"wallplace", WallPlaceArgs>;

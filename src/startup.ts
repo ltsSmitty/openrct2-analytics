@@ -1,4 +1,4 @@
-import { analytics } from "openrct2-analytics";
+import { analytics } from "openrct2-analytics-sdk";
 import hooks from "./hooks";
 
 function onClickMenuItem() {
@@ -12,8 +12,8 @@ function onClickMenuItem() {
 export function startup() {
   // Register a menu item under the map icon:
 
-  // analytics.init({ pluginName: "MyPlugin" });
-  hooks.guest.onGuestGenerated(cb);
+  analytics.init({ pluginName: "analytics-core" });
+  // hooks.guest.onGuestGenerated(cb);
   // hooks.guest.onPeepPickup(cb);
   // hooks.guest.onStaffHire(cb);
   // hooks.guest.onStaffFire(cb);
@@ -25,7 +25,7 @@ export function startup() {
   // hooks.guest.onGuestSetName(cb);
   // hooks.guest.onGuestSetFlags(cb);?
   // hooks.scenarioEditing.onParkEntranceRemoved(cb);
-  // hooks.scenery.onChangeScenery("clearscenery", cb);
+  hooks.scenery.onChangeScenery("bannerplace", cb);
   // hooks.scenery.onChangeScenery("landlower", cb);
   // hooks.scenery.onChangeScenery("landraise", cb);
   // hooks.scenery.onChangeScenery("landsetheight", cb);
@@ -52,5 +52,5 @@ export function startup() {
 }
 
 const cb = (data: any) => {
-  console.log(data);
+  console.log(`in cb`, data);
 };

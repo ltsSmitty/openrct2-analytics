@@ -2,13 +2,7 @@ const ENTRACE_PLACE_REMOVE_SUCCESS_FLAG = -2147483648;
 
 export type PlacePeepSpawnArgs = GameActionEventArgs & {
   action: "peepspawnplace";
-  args: {
-    x: number;
-    y: number;
-    z: number;
-    direction: number;
-    flags: number;
-  };
+  args: PeepSpawnPlaceArgs;
   result: GameActionResult & {
     position: CoordsXYZ;
     expenditureType: "land_purchase";
@@ -58,58 +52,35 @@ export const onMapSizeChange = (callback: () => void) => {
   });
 };
 
-export enum ClimateType {
-  "Cool and wet",
-  "Warm",
-  "Hot and dry",
-  "Cold",
-}
-
-export type ClimateSetArgs = GameActionEventArgs & {
+export type ClimateSetEventArgs = GameActionEventArgs & {
   action: "climateset";
-  args: {
-    climate: ClimateType;
-    flags: number;
-  };
+  args: ClimateSetArgs;
 };
 
-export const onClimateSet = (callback: (args: ClimateSetArgs) => void) => {
+export const onClimateSet = (callback: (args: ClimateSetEventArgs) => void) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as ClimateSetArgs;
+    const data = d as ClimateSetEventArgs;
     if (data.action === "climateset") {
       callback(data);
     }
   });
 };
 
-type EntranceArgs = GameActionEventArgs & {
-  args: {
-    x: number;
-    y: number;
-    z: number;
-    direction: number;
-    footpathSurfaceObject: number;
-    flags: number;
-  };
-  result: GameActionResult & {
-    position: CoordsXYZ;
-    expenditureType: "land_purchase";
-  };
-};
-
-export type EntranceRemoveArgs = EntranceArgs & {
-  action: "parkentranceremove";
-};
-
-export type EntrancePlaceArgs = EntranceArgs & {
+type EntrancePlaceEventArgs = GameActionEventArgs & {
   action: "parkentranceplace";
+  args: ParkEntrancePlaceArgs;
+};
+
+type EntranceRemoveEventArgs = GameActionEventArgs & {
+  action: "parkentranceremove";
+  args: ParkEntranceRemoveArgs;
 };
 
 export const onParkEntrancePlaced = (
-  callback: (args: EntrancePlaceArgs) => void
+  callback: (args: EntrancePlaceEventArgs) => void
 ) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as EntrancePlaceArgs;
+    const data = d as EntrancePlaceEventArgs;
     if (
       data.action === "parkentranceplace" &&
       data.args.flags === ENTRACE_PLACE_REMOVE_SUCCESS_FLAG
@@ -120,10 +91,10 @@ export const onParkEntrancePlaced = (
 };
 
 export const onParkEntranceRemoved = (
-  callback: (args: EntranceRemoveArgs) => void
+  callback: (args: EntranceRemoveEventArgs) => void
 ) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as EntranceRemoveArgs;
+    const data = d as EntranceRemoveEventArgs;
     if (
       data.action === "parkentranceremove" &&
       data.args.flags === ENTRACE_PLACE_REMOVE_SUCCESS_FLAG

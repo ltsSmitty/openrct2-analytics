@@ -1,5 +1,5 @@
 import * as hooks from "../hooks/guest";
-import { analytics } from "openrct2-analytics";
+import { analytics } from "openrct2-analytics-sdk";
 
 export const guestGeneratedCallback = (args: GuestGenerationArgs) => {
   analytics.track({

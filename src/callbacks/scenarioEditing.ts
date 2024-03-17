@@ -1,5 +1,5 @@
 import { EntranceRemoveArgs } from "../hooks/scenarioEditing";
-import { analytics } from "openrct2-analytics";
+import { analytics } from "openrct2-analytics-sdk";
 
 export const titleScreenMapChangedCallback = () => {
   analytics.track("Title screen map changed");

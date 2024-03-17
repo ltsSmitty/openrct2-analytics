@@ -1,6 +1,6 @@
-export const onChangeScenery = <T extends SceneryAction>(
+export const onChangeScenery = <T extends LandscapeAction>(
   sceneryAction: T,
-  callback: (args: SceneryTypeMap[T]) => void
+  callback: (args: LandscapingTypeMap[T]) => void
 ) => {
   context.subscribe("action.execute", (d) => {
     const thisType = getType(sceneryAction);
@@ -12,6 +12,8 @@ export const onChangeScenery = <T extends SceneryAction>(
 };
 
 // Function to get the type based on a key
-function getType<T extends keyof SceneryTypeMap>(key: T): SceneryTypeMap[T] {
-  return {} as SceneryTypeMap[typeof key];
+function getType<T extends keyof LandscapingTypeMap>(
+  key: T
+): LandscapingTypeMap[T] {
+  return {} as LandscapingTypeMap[typeof key];
 }

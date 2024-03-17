@@ -1,4 +1,4 @@
-import { analytics } from "openrct2-analytics";
+import { analytics } from "openrct2-analytics-sdk";
 
 export const mapSavedCallback = () => {
   analytics.track("Map saved");

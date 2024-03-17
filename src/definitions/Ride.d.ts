@@ -1,0 +1,23 @@
+type RideAction = ActionType &
+  (
+    | "mazeplacetrack"
+    | "mazesettrack"
+    | "ridecreate"
+    | "ridedemolish"
+    | "rideentranceexitplace"
+    | "rideentranceexitremove"
+    | "ridefreezerating"
+    | "ride.ratings.calculate"
+    | "ridesetappearance"
+    | "ridesetcolourscheme"
+    | "ridesetname"
+    | "ridesetprice"
+    | "ridesetsetting"
+    | "ridesetstatus"
+    | "ridesetvehicle"
+    | "trackdesign"
+    | "trackplace"
+    | "trackremove"
+    | "tracksetbrakespeed"
+    | "vehicle.crash"
+  );
