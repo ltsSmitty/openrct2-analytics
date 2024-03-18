@@ -1,51 +1,117 @@
-interface ActionData<
-  S extends ActionType,
-  T extends object,
-  TMainExpenditureType extends ExpenditureType | undefined = undefined,
-  TExpenditureType extends ExpenditureType | undefined = TMainExpenditureType
-> {
-  readonly action: S;
-  readonly args: T;
-  readonly player: number;
-  readonly type: number;
-  readonly isClientOnly: boolean;
-  readonly result: GameActionResult & {
-    readonly expenditureType?: TExpenditureType;
-  };
-}
+type LandscapeAction = ActionType &
+  (
+    | "bannerplace"
+    | "bannerremove"
+    | "bannersetcolour"
+    | "bannersetname"
+    | "bannersetstyle"
+    | "clearscenery"
+    | "footpathadditionplace"
+    | "footpathadditionremove"
+    | "footpathplace"
+    | "footpathlayoutplace"
+    | "footpathremove"
+    | "landbuyrights"
+    | "landlower"
+    | "landraise"
+    | "landsetheight"
+    | "landsetrights"
+    | "landsmooth"
+    | "largesceneryplace"
+    | "largesceneryremove"
+    | "largescenerysetcolour"
+    | "smallsceneryplace"
+    | "smallsceneryremove"
+    | "signsetname"
+    | "signsetstyle"
+    | "surfacesetstyle"
+    | "tilemodify"
+    | "wallplace"
+    | "wallremove"
+    | "wallsetcolour"
+    | "waterlower"
+    | "waterraise"
+    | "watersetheight"
+  );
 
-interface LandscapingTypeMap
-  extends Record<
-    LandscapeAction,
-    ActionData<
-      LandscapeAction,
-      object,
-      "landscaping",
-      ExpenditureType | undefined
-    >
-  > {
-  clearscenery: ActionData<"clearscenery", ClearSceneryArgs>;
-  landlower: ActionData<"landlower", LandLowerArgs>;
-  landraise: ActionData<"landraise", LandRaiseArgs>;
-  landsetheight: ActionData<"landsetheight", LandSetHeightArgs>;
-  landsetrights: ActionData<"landsetrights", LandSetRightsArgs>;
-  landsmooth: ActionData<"landsmooth", LandSmoothArgs>;
-  largesceneryplace: ActionData<"largesceneryplace", LargeSceneryPlaceArgs>;
-  largesceneryremove: ActionData<"largesceneryremove", LargeSceneryRemoveArgs>;
-  largescenerysetcolour: ActionData<
-    "largescenerysetcolour",
-    LargeScenerySetColourArgs
-  >;
-  smallsceneryplace: ActionData<"smallsceneryplace", SmallSceneryPlaceArgs>;
-  smallsceneryremove: ActionData<"smallsceneryremove", SmallSceneryRemoveArgs>;
-  signsetname: ActionData<"signsetname", SignSetNameArgs, undefined>;
-  signsetstyle: ActionData<"signsetstyle", SignSetStyleArgs, undefined>;
-  surfacesetstyle: ActionData<"surfacesetstyle", SurfaceSetStyleArgs>;
-  tilemodify: ActionData<"tilemodify", TileModifyArgs>;
-  wallplace: ActionData<"wallplace", WallPlaceArgs>;
-  wallremove: ActionData<"wallremove", WallRemoveArgs>;
-  wallsetcolour: ActionData<"wallsetcolour", WallSetColourArgs>;
-  waterlower: ActionData<"waterlower", WaterLowerArgs>;
-  waterraise: ActionData<"waterraise", WaterRaiseArgs>;
-  watersetheight: ActionData<"watersetheight", WaterSetHeightArgs>;
-}
+type ScenarioEditingAction =
+  | "mapchanged_scenarioEditor"
+  | "mapchanged_trackDesigner"
+  | "mapchanged_trackManager"
+  // unsure which is correct
+  | "changemapsize"
+  | "mapchangesize"
+  | "climateset"
+  | "parkentranceplace"
+  | "parkentranceremove"
+  | "peepspawnplace"
+  | "scenariosetsetting";
+
+type ParkChangeAction =
+  | "loadorquit"
+  | "mapchanged_titleScreen"
+  | "mapchanged_inGame"
+  | "mapsaved";
+
+type RideAction =
+  | "mazeplacetrack"
+  | "mazesettrack"
+  | "ridecreate"
+  | "ridedemolish"
+  | "rideentranceexitplace"
+  | "rideentranceexitremove"
+  | "ridefreezerating"
+  | "ride.ratings.calculate"
+  | "ridesetappearance"
+  | "ridesetcolourscheme"
+  | "ridesetname"
+  | "ridesetprice"
+  | "ridesetsetting"
+  | "ridesetstatus"
+  | "ridesetvehicle"
+  | "trackdesign"
+  | "trackplace"
+  | "trackremove"
+  | "tracksetbrakespeed"
+  | "vehicle.crash";
+
+type GuestAction = "guestsetflags" | "guestsetname" | "peeppickup";
+
+type StaffAction =
+  | "stafffire"
+  | "staffhire"
+  | "staffsetcolour"
+  | "staffsetcostume"
+  | "staffsetname"
+  | "staffsetorders"
+  | "staffsetpatrolarea";
+
+type NetworkAction =
+  | "networkmodifygroup"
+  | "network.chat"
+  | "network.action"
+  | "network.join"
+  | "network.leave"
+  | "playerkick"
+  | "playersetgroup";
+
+type OtherAction =
+  | "balloonpress"
+  | "map.change"
+  | "map.changed"
+  | "map.save"
+  | "action.location"
+  | "cheatset"
+  | "gamesetspeed"
+  | "pausetoggle"
+  // can't figure out how to hook into this one
+  | "tilemodify";
+
+type ParkAction =
+  | "parkmarketing"
+  | "parksetdate"
+  | "parksetentrancefee"
+  | "parksetloan"
+  | "parksetname"
+  | "parksetparameter"
+  | "parksetresearchfunding";

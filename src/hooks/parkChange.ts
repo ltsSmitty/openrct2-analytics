@@ -1,29 +1,46 @@
-export const onMapSaved = (callback: () => void) => {
-  context.subscribe("map.save", callback);
-};
+type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
 
-export const onTitleScreenMapChanged = (callback: () => void) => {
-  context.subscribe("map.changed", () => {
+const onMapSaved = (callback: TCallback) => {
+  return context.subscribe("map.save", callback);
+};
+const onTitleScreenMapChanged = (callback: TCallback) => {
+  return context.subscribe("map.changed", () => {
     if (context.mode === "title") {
-      callback();
+      callback(undefined);
     }
   });
 };
 
-export const onInGameMapChanged = (callback: () => void) => {
-  context.subscribe("map.changed", () => {
+const onInGameMapChanged = (callback: TCallback) => {
+  return context.subscribe("map.changed", () => {
     if (context.mode === "normal") {
-      callback();
+      callback(undefined);
     }
   });
 };
 
-export const onLoadOrQuit = (
-  loadOrQuitCallback: (result: GameActionEventArgs) => void
-) => {
-  context.subscribe("action.execute", (data) => {
+const onLoadOrQuit = (callback: TCallback) => {
+  return context.subscribe("action.execute", (data) => {
     if (data.action === "loadorquit") {
-      loadOrQuitCallback(data);
+      callback(data);
     }
   });
+};
+
+export const onParkChange = <T extends ParkChangeAction>(
+  parkChangeAction: T,
+  callback: TCallback
+) => {
+  switch (parkChangeAction) {
+    case "mapsaved":
+      return onMapSaved(callback);
+    case "mapchanged_titleScreen":
+      return onTitleScreenMapChanged(callback);
+    case "mapchanged_inGame":
+      return onInGameMapChanged(callback);
+    case "loadorquit":
+      return onLoadOrQuit(callback);
+    default:
+      throw new Error(`No action found for ${parkChangeAction}`);
+  }
 };

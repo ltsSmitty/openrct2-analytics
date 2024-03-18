@@ -1,65 +1,49 @@
 const ENTRACE_PLACE_REMOVE_SUCCESS_FLAG = -2147483648;
 
-export type PlacePeepSpawnArgs = GameActionEventArgs & {
-  action: "peepspawnplace";
-  args: PeepSpawnPlaceArgs;
-  result: GameActionResult & {
-    position: CoordsXYZ;
-    expenditureType: "land_purchase";
-  };
-};
+type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
 
-export const onPlacePeepSpawn = (
-  callback: (guest: PlacePeepSpawnArgs) => void
-) => {
-  context.subscribe("action.execute", (d) => {
-    const data = d as PlacePeepSpawnArgs;
+const onPlacePeepSpawn = (callback: TCallback) => {
+  return context.subscribe("action.execute", (data) => {
     if (data.action === "peepspawnplace") {
       callback(data);
     }
   });
 };
 
-export const onScenarioEditorMapChanged = (callback: () => void) => {
-  context.subscribe("map.changed", () => {
+const onScenarioEditorMapChanged = (callback: TCallback) => {
+  return context.subscribe("map.changed", () => {
     if (context.mode === "scenario_editor") {
-      callback();
+      callback(undefined);
     }
   });
 };
 
-export const onTrackDesignerMapChanged = (callback: () => void) => {
-  context.subscribe("map.changed", () => {
+const onTrackDesignerMapChanged = (callback: TCallback) => {
+  return context.subscribe("map.changed", () => {
     if (context.mode === "track_designer") {
-      callback();
+      callback(undefined);
     }
   });
 };
 
-export const onTrackManagerMapChanged = (callback: () => void) => {
-  context.subscribe("map.changed", () => {
+const onTrackManagerMapChanged = (callback: TCallback) => {
+  return context.subscribe("map.changed", () => {
     if (context.mode === "track_manager") {
-      callback();
+      callback(undefined);
     }
   });
 };
 
-export const onMapSizeChange = (callback: () => void) => {
-  context.subscribe("action.execute", (data) => {
+const onMapSizeChange = (callback: TCallback) => {
+  return context.subscribe("action.execute", (data) => {
     if (data.action === "changemapsize") {
-      callback();
+      callback(undefined);
     }
   });
 };
 
-export type ClimateSetEventArgs = GameActionEventArgs & {
-  action: "climateset";
-  args: ClimateSetArgs;
-};
-
-export const onClimateSet = (callback: (args: ClimateSetEventArgs) => void) => {
-  context.subscribe("action.execute", (d) => {
-    const data = d as ClimateSetEventArgs;
+const onClimateSet = (callback: TCallback) => {
+  return context.subscribe("action.execute", (data) => {
     if (data.action === "climateset") {
       callback(data);
     }
@@ -76,10 +60,10 @@ type EntranceRemoveEventArgs = GameActionEventArgs & {
   args: ParkEntranceRemoveArgs;
 };
 
-export const onParkEntrancePlaced = (
+const onParkEntrancePlaced = (
   callback: (args: EntrancePlaceEventArgs) => void
 ) => {
-  context.subscribe("action.execute", (d) => {
+  return context.subscribe("action.execute", (d) => {
     const data = d as EntrancePlaceEventArgs;
     if (
       data.action === "parkentranceplace" &&
@@ -90,10 +74,10 @@ export const onParkEntrancePlaced = (
   });
 };
 
-export const onParkEntranceRemoved = (
+const onParkEntranceRemoved = (
   callback: (args: EntranceRemoveEventArgs) => void
 ) => {
-  context.subscribe("action.execute", (d) => {
+  return context.subscribe("action.execute", (d) => {
     const data = d as EntranceRemoveEventArgs;
     if (
       data.action === "parkentranceremove" &&
@@ -102,4 +86,34 @@ export const onParkEntranceRemoved = (
       callback(data);
     }
   });
+};
+
+export const onScenarioEdit = <T extends ScenarioEditingAction>(
+  action: T,
+  callback: TCallback
+) => {
+  switch (action) {
+    case "peepspawnplace":
+      return onPlacePeepSpawn(callback);
+    case "mapchanged_scenarioEditor":
+      return onScenarioEditorMapChanged(callback);
+    case "mapchanged_trackDesigner":
+      return onTrackDesignerMapChanged(callback);
+    case "mapchanged_trackManager":
+      return onTrackManagerMapChanged(callback);
+    case "changemapsize":
+      return onMapSizeChange(callback);
+    case "climateset":
+      return onClimateSet(callback);
+    case "parkentranceplace":
+      return onParkEntrancePlaced(
+        callback as (args: EntrancePlaceEventArgs) => void
+      );
+    case "parkentranceremove":
+      return onParkEntranceRemoved(
+        callback as (args: EntranceRemoveEventArgs) => void
+      );
+    default:
+      throw new Error(`No action found for ${action}`);
+  }
 };
