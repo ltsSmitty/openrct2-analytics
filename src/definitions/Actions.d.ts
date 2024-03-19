@@ -1,5 +1,23 @@
 type LandscapeAction = ActionType &
   (
+    | "landbuyrights"
+    | "landlower"
+    | "landraise"
+    | "landsetheight"
+    | "landsetrights"
+    | "landsmooth"
+    | "surfacesetstyle"
+    | "tilemodify"
+    | "wallplace"
+    | "wallremove"
+    | "wallsetcolour"
+    | "waterlower"
+    | "waterraise"
+    | "watersetheight"
+  );
+
+type SceneryAction = ActionType &
+  (
     | "bannerplace"
     | "bannerremove"
     | "bannersetcolour"
@@ -11,12 +29,6 @@ type LandscapeAction = ActionType &
     | "footpathplace"
     | "footpathlayoutplace"
     | "footpathremove"
-    | "landbuyrights"
-    | "landlower"
-    | "landraise"
-    | "landsetheight"
-    | "landsetrights"
-    | "landsmooth"
     | "largesceneryplace"
     | "largesceneryremove"
     | "largescenerysetcolour"
@@ -24,14 +36,6 @@ type LandscapeAction = ActionType &
     | "smallsceneryremove"
     | "signsetname"
     | "signsetstyle"
-    | "surfacesetstyle"
-    | "tilemodify"
-    | "wallplace"
-    | "wallremove"
-    | "wallsetcolour"
-    | "waterlower"
-    | "waterraise"
-    | "watersetheight"
   );
 
 type ScenarioEditingAction =
@@ -69,13 +73,25 @@ type RideAction =
   | "ridesetsetting"
   | "ridesetstatus"
   | "ridesetvehicle"
+  | "stallcreate"
+  | "stalldemolish"
+  | "stallsetname"
+  | "stallsetprice"
+  | "stallsetsetting"
+  | "stallopen"
+  | "stallclose"
   | "trackdesign"
   | "trackplace"
   | "trackremove"
   | "tracksetbrakespeed"
   | "vehicle.crash";
 
-type GuestAction = "guestsetflags" | "guestsetname" | "peeppickup";
+type GuestAction =
+  | "guestsetflags"
+  | "guestsetname"
+  | "peeppickup"
+  | "peepsetdown"
+  | "guest.generated";
 
 type StaffAction =
   | "stafffire"
@@ -115,3 +131,5 @@ type ParkAction =
   | "parksetname"
   | "parksetparameter"
   | "parksetresearchfunding";
+
+type TCallback = (args: GameActionEventArgs<object> | undefined) => void;

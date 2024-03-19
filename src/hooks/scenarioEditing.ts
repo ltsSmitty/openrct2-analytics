@@ -114,6 +114,10 @@ export const onScenarioEdit = <T extends ScenarioEditingAction>(
         callback as (args: EntranceRemoveEventArgs) => void
       );
     default:
-      throw new Error(`No action found for ${action}`);
+      return context.subscribe("action.execute", (data) => {
+        if (data.action === action) {
+          callback(data);
+        }
+      });
   }
 };
