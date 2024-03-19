@@ -113,10 +113,6 @@ type NetworkAction =
 
 type OtherAction =
   | "balloonpress"
-  | "map.change"
-  | "map.changed"
-  | "map.save"
-  | "action.location"
   | "cheatset"
   | "gamesetspeed"
   | "pausetoggle"
