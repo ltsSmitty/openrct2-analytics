@@ -26,7 +26,7 @@ export const useQueryHook = <T extends HookAction>(
 
 const rideFilter = (action: RideAction, data: GameActionEventArgs<object>) => {
   const rideData = data as unknown as RideActionShape;
-  return rideData.action === action && rideData.args.flags <= 0;
+  return rideData.action === action && rideData.args.flags < 0;
 };
 
 export const useRideQueryHook = <T extends RideAction>(

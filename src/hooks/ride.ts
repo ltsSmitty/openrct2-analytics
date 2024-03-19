@@ -1,4 +1,4 @@
-import { useQueryHook, useRideQueryHook } from "./utilityHooks";
+import { useRideQueryHook } from "./utilityHooks";
 
 /** Utility type to make typing easier in hooks */
 type RideActionShape = {
@@ -40,7 +40,44 @@ const onRideStallCreate = (
 };
 
 const onRideSetSetting = (callback: TCallback) => {
-  const queryHook = useRideQueryHook("ridesetsetting", callback);
+  let rideSetSettingHistory:
+    | {
+        ride: number;
+        setting: number;
+        value: number;
+      }
+    | undefined;
+
+  /**
+   * If the user has changed their default inspection interval,
+   * this query will get when placing a prebuilt coaster every tick with that value
+   * This will let it call once, but then ignore it until it changes.
+   */
+  const queryHook = useRideQueryHook("ridesetsetting", (d) => {
+    const data = d as unknown as RideActionShape & {
+      args: { value: number; setting: number };
+    };
+    const rideID = data.args.ride;
+    const ride = map.getRide(rideID);
+
+    const INSPECTION_INTERVAL_ENUM = 5;
+    if (
+      data.args.setting === INSPECTION_INTERVAL_ENUM &&
+      data?.args.value !== ride.inspectionInterval
+    ) {
+      if (
+        !rideSetSettingHistory ||
+        rideSetSettingHistory.value !== data.args.value
+      ) {
+        rideSetSettingHistory = {
+          ride: rideID,
+          setting: data.args.flags,
+          value: data.args.value,
+        };
+        callback(data as unknown as GameActionEventArgs<object>);
+      }
+    }
+  });
   return queryHook;
 };
 
@@ -68,22 +105,6 @@ const onRideStallDemolish = (
       classification: ride.classification,
     };
   });
-
-  // const queryHook = context.subscribe("action.query", (d) => {
-  //   const data = d as unknown as RideActionShape;
-
-  //   if (data.action === "ridedemolish" && data.args.flags < 0) {
-  //     const rideId = data.args.ride;
-  //     const ride = map.getRide(rideId);
-  //     rideQueriedToRemove = {
-  //       ride: rideId,
-  //       classification: ride.classification,
-  //     };
-  //     return d;
-  //   }
-  //   // querying something else
-  //   return d.result;
-  // });
 
   const executeHook = context.subscribe("action.execute", (d) => {
     const data = d as unknown as RideActionShape;
@@ -136,6 +157,8 @@ export const onRideChange = <T extends RideAction>(
       return onRideStallCreate(callback);
     case "stallcreate":
       return onRideStallCreate(undefined, callback);
+    case "ridesetsetting":
+      return onRideSetSetting(callback);
     default:
       return context.subscribe(
         "action.execute",
