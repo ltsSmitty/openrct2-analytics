@@ -1,3 +1,15 @@
+type HookAction =
+  | LandscapeAction
+  | SceneryAction
+  | ScenarioEditingAction
+  | ParkChangeAction
+  | RideAction
+  | GuestAction
+  | StaffAction
+  | NetworkAction
+  | OtherAction
+  | ParkAction;
+
 type LandscapeAction = ActionType &
   (
     | "landbuyrights"

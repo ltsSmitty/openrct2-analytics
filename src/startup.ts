@@ -9,6 +9,8 @@ export function startup() {
   onRideChange("mazesettrack", cb);
   onRideChange("ridecreate", cb);
   onRideChange("ridedemolish", cb);
+  onRideChange("stallcreate", cb);
+  onRideChange("stalldemolish", cb);
   onRideChange("rideentranceexitplace", cb);
   onRideChange("rideentranceexitremove", cb);
   onRideChange("ridefreezerating", cb);
@@ -21,7 +23,7 @@ export function startup() {
   onRideChange("ridesetstatus", cb);
   onRideChange("ridesetvehicle", cb);
   onRideChange("trackdesign", cb);
-  onRideChange("trackplace", cb);
+  // onRideChange("trackplace", cb);
   onRideChange("trackremove", cb);
   onRideChange("tracksetbrakespeed", cb);
   onRideChange("vehicle.crash", cb);
