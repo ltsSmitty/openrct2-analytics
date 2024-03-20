@@ -17,9 +17,7 @@ export const onRideSetSetting = (callback: TCallback) => {
    * This will let it call once, but then ignore it until it changes.
    */
   const queryHook = useRideQueryHook("ridesetsetting", (d) => {
-    const data = d as unknown as RideActionShape & {
-      args: { value: number; setting: number };
-    };
+    const data = d as EventCast<RideSetSettingArgs>;
     const rideID = data.args.ride;
     const ride = map.getRide(rideID);
 
@@ -44,9 +42,7 @@ export const onRideSetSetting = (callback: TCallback) => {
   });
 
   const onExecuteHook = context.subscribe("action.execute", (d) => {
-    const data = d as unknown as RideActionShape & {
-      args: { value: number; setting: number };
-    };
+    const data = d as EventCast<RideSetSettingArgs>;
     if (data.action === "ridesetsetting" && data.args.flags <= 0) {
       if (shouldUpdate) {
         callback(data as unknown as GameActionEventArgs<object>);

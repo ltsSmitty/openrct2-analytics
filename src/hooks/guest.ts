@@ -8,35 +8,18 @@ const onGuestGenerated = (callback: TCallback) => {
   });
 };
 
-enum PeepPickupType {
-  PickUp = 0,
-  SetDown = 1,
-  /**
-   * Gets called when the guest is dropped, but then type 1 always get called afterwards
-   * could be some sort of query, but it's not clear what it's querying
-   */
-  Unknown = 2,
-}
-
-type PeepPickupArgs = GameActionEventArgs & {
-  action: "peeppickup";
-  args: {
-    type: PeepPickupType;
-  };
-};
-
-const onPeepPickup = (callback: (guest: PeepPickupArgs) => void) => {
+const onPeepPickup = (callback: TCallback) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as PeepPickupArgs;
+    const data = d as EventCast<PeepPickupArgs>;
     if (data.action === "peeppickup" && data.args.type === 0) {
       callback(data);
     }
   });
 };
 
-const onPeepSetDown = (callback: (guest: PeepPickupArgs) => void) => {
+const onPeepSetDown = (callback: TCallback) => {
   context.subscribe("action.execute", (d) => {
-    const data = d as PeepPickupArgs;
+    const data = d as EventCast<PeepPickupArgs>;
     if (data.action === "peeppickup" && data.args.type === 1) {
       callback(data);
     }

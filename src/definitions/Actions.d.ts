@@ -142,17 +142,10 @@ type ParkAction =
 
 type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
 
-/** Utility type to make typing easier in hooks */
-type RideActionShape = {
-  action: RideAction;
-  args: { flags: number; ride: number };
-  result: { ride: number };
-};
-
 type EventCast<
   TArgs extends object = object,
   TResult extends object = object
 > = GameActionEventArgs<TArgs> & {
-  action: RideAction;
+  action: HookAction;
   result: Required<TResult>;
 };
