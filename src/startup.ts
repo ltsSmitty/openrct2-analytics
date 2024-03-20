@@ -7,10 +7,10 @@ export function startup() {
 
   // onRideChange("mazeplacetrack", cb);
   // onRideChange("mazesettrack", cb);
-  // onRideChange("ridecreate", cb);
-  // onRideChange("ridedemolish", cb);
-  // onRideChange("stallcreate", cb);
-  // onRideChange("stalldemolish", cb);
+  onRideChange("ridecreate", cb);
+  onRideChange("ridedemolish", cb);
+  onRideChange("stallcreate", cb);
+  onRideChange("stalldemolish", cb);
   // onRideChange("rideentranceexitplace", cb);
   // onRideChange("rideentranceexitremove", cb);
   // onRideChange("ridefreezerating", cb);
@@ -19,7 +19,7 @@ export function startup() {
   // onRideChange("ridesetcolourscheme", cb);
   // onRideChange("ridesetname", cb);
   // onRideChange("ridesetprice", cb);
-  onRideChange("ridesetsetting", cb);
+  // onRideChange("ridesetsetting", cb);
   // onRideChange("ridesetstatus", cb);
   // onRideChange("ridesetvehicle", cb);
   // onRideChange("trackdesign", cb);
@@ -38,7 +38,5 @@ export function startup() {
 }
 
 const cb = (data: any) => {
-  if (data.args.flags <= 0) {
-    console.log(`in cb`, data);
-  }
+  console.log(`in cb`, data.action);
 };

@@ -17,26 +17,80 @@ const onRideRatingsCalculate = (callback: TCallback) => {
   });
 };
 
+/**
+ * The core issue is that placing a tracked ride calls create > demolish > create.
+ * This addresses that.
+ */
+type RideCreateDemolishQueue = {
+  ride: number;
+  action: "create" | "demolish";
+  timeStamp: number;
+};
+
+const rideCreateDemolishQueue: RideCreateDemolishQueue[] = [];
+let isInTrackedRideCreateLoop: boolean = false;
+
 const onRideStallCreate = (
   rideCreateCallback?: TCallback,
   stallCreateCallback?: TCallback
 ) => {
-  return context.subscribe("action.execute", (d) => {
-    const data = d as unknown as RideActionShape;
+  const rideCreateDemolishHook = context.subscribe(
+    "action.execute",
+    (data: GameActionEventArgs<object>) => {
+      const action = data.action as RideAction;
+      if (action !== "ridecreate" && action !== "ridedemolish") return;
 
-    if (data.action === "ridecreate" && data.args.flags <= 0) {
-      const classification = map.getRide(data.result.ride).classification;
-      if (
-        (classification === "stall" || classification === "facility") &&
-        stallCreateCallback
-      ) {
-        data.action = "stallcreate";
-        stallCreateCallback(data as unknown as GameActionEventArgs<object>);
-      } else if (rideCreateCallback && classification === "ride") {
-        rideCreateCallback(d);
+      if (action === "ridedemolish") {
+        console.log(`ride demolish action`, data);
       }
+
+      // filter out simulated builds by filtering out flags >= 0
+      if ((data.args as any).flags >= 0) return;
+
+      // handle stall/facility creation
+      if (action === "ridecreate") {
+        const classification = map.getRide(
+          (data.result as any).ride
+        ).classification;
+        if (
+          (classification === "stall" || classification == "facility") &&
+          stallCreateCallback
+        ) {
+          stallCreateCallback(data);
+          return;
+        }
+      }
+
+      // handle ride creation/demolish loop
+      // only add the demolish if it's not the same as before
+      addDataToQueue(action, data);
+
+      const timebetween =
+        rideCreateDemolishQueue[0]?.timeStamp -
+        rideCreateDemolishQueue[1]?.timeStamp;
+
+      // start with if the most recent event was ridecreate
+      if (action === "ridecreate")
+        if (
+          rideCreateDemolishQueue[1]?.action === "demolish" &&
+          // make sure the ride is the same
+          rideCreateDemolishQueue[0]?.ride ===
+            rideCreateDemolishQueue[1]?.ride &&
+          // it should
+          timebetween < 10
+        ) {
+          // the loop is completed at this point
+          isInTrackedRideCreateLoop = false;
+        } else {
+          if (rideCreateCallback) {
+            rideCreateCallback(data);
+            isInTrackedRideCreateLoop = true;
+          }
+        }
     }
-  });
+  );
+
+  return rideCreateDemolishHook;
 };
 
 const onRideSetSetting = (callback: TCallback) => {
@@ -47,6 +101,8 @@ const onRideSetSetting = (callback: TCallback) => {
         value: number;
       }
     | undefined;
+
+  let shouldUpdate = false;
 
   /**
    * If the user has changed their default inspection interval,
@@ -74,11 +130,30 @@ const onRideSetSetting = (callback: TCallback) => {
           setting: data.args.flags,
           value: data.args.value,
         };
-        callback(data as unknown as GameActionEventArgs<object>);
+        shouldUpdate = true;
+        // callback(data as unknown as GameActionEventArgs<object>);
       }
     }
   });
-  return queryHook;
+
+  const onExecuteHook = context.subscribe("action.execute", (d) => {
+    const data = d as unknown as RideActionShape & {
+      args: { value: number; setting: number };
+    };
+    if (data.action === "ridesetsetting" && data.args.flags <= 0) {
+      if (shouldUpdate) {
+        callback(data as unknown as GameActionEventArgs<object>);
+        shouldUpdate = false;
+      }
+    }
+  });
+
+  return {
+    dispose: () => {
+      queryHook.dispose();
+      onExecuteHook.dispose();
+    },
+  };
 };
 
 const onRideStallDemolish = (
@@ -100,6 +175,7 @@ const onRideStallDemolish = (
     const data = d as unknown as RideActionShape;
     const rideId = data.args.ride;
     const ride = map.getRide(rideId);
+
     rideQueriedToRemove = {
       ride: rideId,
       classification: ride.classification,
@@ -114,9 +190,24 @@ const onRideStallDemolish = (
       data.args.flags <= 0 &&
       rideQueriedToRemove
     ) {
+      console.log(
+        `queue data`,
+        rideCreateDemolishQueue[0]?.action,
+        rideCreateDemolishQueue[1]?.action
+      );
+      console.log(
+        `time between`,
+        rideCreateDemolishQueue[0]?.timeStamp -
+          rideCreateDemolishQueue[1]?.timeStamp
+      );
+      if (rideCreateDemolishQueue[0]?.timeStamp > new Date().getTime() - 10) {
+        isInTrackedRideCreateLoop = false;
+      }
+      console.log(`isInTrackedRideCreateLoop`, isInTrackedRideCreateLoop);
       if (
         rideDemolishCallback &&
-        rideQueriedToRemove.classification === "ride"
+        rideQueriedToRemove.classification === "ride" &&
+        !isInTrackedRideCreateLoop
       ) {
         rideDemolishCallback(d as GameActionEventArgs<object>);
         rideQueriedToRemove = undefined;
@@ -154,7 +245,7 @@ export const onRideChange = <T extends RideAction>(
     case "stalldemolish":
       return onRideStallDemolish(undefined, callback);
     case "ridecreate":
-      return onRideStallCreate(callback);
+      return onRideStallCreate(callback, undefined);
     case "stallcreate":
       return onRideStallCreate(undefined, callback);
     case "ridesetsetting":
@@ -169,5 +260,25 @@ export const onRideChange = <T extends RideAction>(
           }
         }
       );
+  }
+};
+
+const addDataToQueue = (
+  action: RideAction,
+  data: GameActionEventArgs<object>
+) => {
+  const queueData = {
+    ride:
+      action === "ridecreate"
+        ? (data.result as any).ride
+        : (data.args as any).ride,
+    action: action === "ridecreate" ? "create" : "demolish",
+    timeStamp: new Date().getTime(),
+  };
+
+  rideCreateDemolishQueue.unshift(queueData as RideCreateDemolishQueue);
+
+  if (rideCreateDemolishQueue.length > 3) {
+    rideCreateDemolishQueue.pop();
   }
 };
