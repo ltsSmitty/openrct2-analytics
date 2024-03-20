@@ -142,9 +142,13 @@ type ParkAction =
 
 type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
 
+/** Use for casting `action.execute` callback args.
+ * If there is a GameActionResultArgs defined for the action,
+ * it should be used as the TResult type.
+ */
 type EventCast<
   TArgs extends object = object,
-  TResult extends object = object
+  TResult extends GameActionResult = GameActionResult
 > = GameActionEventArgs<TArgs> & {
   action: HookAction;
   result: Required<TResult>;

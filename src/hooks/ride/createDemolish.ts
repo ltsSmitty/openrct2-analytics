@@ -34,7 +34,7 @@ export const onRideStallCreate = (
       if (classification === "stall" || classification == "facility") {
         data.action = "stallcreate";
         if (stallCreateCallback) {
-          stallCreateCallback(data as unknown as GameActionEventArgs<object>);
+          stallCreateCallback(data as EventCast<RideCreateArgs>);
         }
       }
     }
@@ -93,47 +93,50 @@ export const onRideStallDemolish = (
     };
   });
 
-  const executeHook = context.subscribe("action.execute", (d) => {
-    const data = d as EventCast<RideDemolishArgs>;
-
-    if (
-      data.action === "ridedemolish" &&
-      data.args.flags &&
-      data.args.flags <= 0 &&
-      rideQueriedToRemove
-    ) {
-      const timeBetween =
-        rideCreateDemolishQueue[0]?.timeStamp -
-        rideCreateDemolishQueue[1]?.timeStamp;
-
-      if (timeBetween > 10) {
-        // console.log(`time between events is large`, timeBetween);
-        isInTrackedRideCreateLoop = false;
-      }
-      // console.log(`isInTrackedRideCreateLoop`, isInTrackedRideCreateLoop);
-
-      // make sure it's a real delete event,
-      // not one that happens during the tracked ride create loop
+  const executeHook = context.subscribe<RideDemolishArgs>(
+    "action.execute",
+    (data) => {
       if (
-        rideDemolishCallback &&
-        rideQueriedToRemove.classification === "ride" &&
-        !isInTrackedRideCreateLoop
+        data.action === "ridedemolish" &&
+        data.args.flags &&
+        data.args.flags <= 0 &&
+        rideQueriedToRemove
       ) {
-        rideDemolishCallback(d as GameActionEventArgs<object>);
-        rideQueriedToRemove = undefined;
-      } else {
+        const timeBetween =
+          rideCreateDemolishQueue[0]?.timeStamp -
+          rideCreateDemolishQueue[1]?.timeStamp;
+
+        if (timeBetween > 10) {
+          // console.log(`time between events is large`, timeBetween);
+          isInTrackedRideCreateLoop = false;
+        }
+        // console.log(`isInTrackedRideCreateLoop`, isInTrackedRideCreateLoop);
+
+        // make sure it's a real delete event,
+        // not one that happens during the tracked ride create loop
         if (
-          stallDemolishCallback &&
-          (rideQueriedToRemove.classification === "stall" ||
-            rideQueriedToRemove.classification === "facility")
+          rideDemolishCallback &&
+          rideQueriedToRemove.classification === "ride" &&
+          !isInTrackedRideCreateLoop
         ) {
-          data.action = "stalldemolish";
-          stallDemolishCallback(data as unknown as GameActionEventArgs<object>);
+          rideDemolishCallback(data);
           rideQueriedToRemove = undefined;
+        } else {
+          if (
+            stallDemolishCallback &&
+            (rideQueriedToRemove.classification === "stall" ||
+              rideQueriedToRemove.classification === "facility")
+          ) {
+            data.action = "stalldemolish";
+            stallDemolishCallback(
+              data as unknown as GameActionEventArgs<object>
+            );
+            rideQueriedToRemove = undefined;
+          }
         }
       }
     }
-  });
+  );
 
   return {
     dispose: () => {

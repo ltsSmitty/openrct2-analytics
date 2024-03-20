@@ -1168,9 +1168,9 @@ declare global {
       hook: "action.query",
       callback: (e: GameActionEventArgs) => void
     ): IDisposable;
-    subscribe(
+    subscribe<T extends object>(
       hook: "action.execute",
-      callback: (e: GameActionEventArgs) => void
+      callback: (e: EventCast<T>) => void
     ): IDisposable;
     subscribe(hook: "interval.tick", callback: () => void): IDisposable;
     subscribe(hook: "interval.day", callback: () => void): IDisposable;
@@ -2047,11 +2047,11 @@ declare global {
   }
 
   interface RideCreateActionResult extends GameActionResult {
-    readonly ride?: number;
+    readonly ride: number;
   }
 
   interface StaffHireNewActionResult extends GameActionResult {
-    readonly peep?: number;
+    readonly peep: number;
   }
 
   interface NetworkEventArgs {
