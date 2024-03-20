@@ -1,4 +1,4 @@
-const LandscapeActions = [
+export const landscapeActions = [
   "landbuyrights",
   "landlower",
   "landraise",
@@ -15,9 +15,7 @@ const LandscapeActions = [
   "watersetheight",
 ] as const;
 
-type LandscapeAction = (typeof LandscapeActions)[number];
-
-const SceneryActions = [
+export const sceneryActions = [
   "bannerplace",
   "bannerremove",
   "bannersetcolour",
@@ -34,33 +32,32 @@ const SceneryActions = [
   "largescenerysetcolour",
   "smallsceneryplace",
   "smallsceneryremove",
+  "smallscenerysetcolour",
   "signsetname",
   "signsetstyle",
 ] as const;
 
-type SceneryAction = (typeof SceneryActions)[number];
-
-const ScenarioEditingActions = [
+export const scenarioEditingActions = [
   "mapchanged_scenarioEditor",
   "mapchanged_trackDesigner",
   "mapchanged_trackManager",
-  "changemapsize", // unsure which of this is correct
+  "changemapsize",
   "mapchangesize",
   "climateset",
+  "parkentranceplace",
+  "parkentranceremove",
+  "peepspawnplace",
+  "scenariosetsetting",
 ] as const;
 
-type ScenarioEditingAction = (typeof ScenarioEditingActions)[number];
-
-const ParkChangeActions = [
+export const parkChangeActions = [
   "loadorquit",
   "mapchanged_titleScreen",
   "mapchanged_inGame",
   "mapsaved",
 ] as const;
 
-type ParkChangeAction = (typeof ParkChangeActions)[number];
-
-const RideActions = [
+export const rideActions = [
   "mazeplacetrack",
   "mazesettrack",
   "ridecreate",
@@ -89,9 +86,7 @@ const RideActions = [
   "vehicle.crash",
 ] as const;
 
-type RideAction = (typeof RideActions)[number];
-
-const GuestActions = [
+export const guestActions = [
   "guestsetflags",
   "guestsetname",
   "peeppickup",
@@ -99,9 +94,7 @@ const GuestActions = [
   "guest.generated",
 ] as const;
 
-type GuestAction = (typeof GuestActions)[number];
-
-const StaffActions = [
+export const staffActions = [
   "stafffire",
   "staffhire",
   "staffsetcolour",
@@ -111,9 +104,7 @@ const StaffActions = [
   "staffsetpatrolarea",
 ] as const;
 
-type StaffAction = (typeof StaffActions)[number];
-
-const NetworkActions = [
+export const networkActions = [
   "networkmodifygroup",
   "network.chat",
   "network.action",
@@ -123,11 +114,9 @@ const NetworkActions = [
   "playersetgroup",
 ] as const;
 
-type NetworkAction = (typeof NetworkActions)[number];
+export const otherActions = ["balloonpress", "cheatset", "gamesetspeed", "pausetoggle"] as const;
 
-const OtherActions = ["balloonpress", "cheatset", "gamesetspeed", "pausetoggle"] as const;
-
-const ParkActions = [
+export const parkActions = [
   "parkmarketing",
   "parksetdate",
   "parksetentrancefee",
@@ -137,19 +126,48 @@ const ParkActions = [
   "parksetresearchfunding",
 ] as const;
 
-type ParkAction = (typeof ParkActions)[number];
-
-const HookActions = [
-  ...LandscapeActions,
-  ...SceneryActions,
-  ...ScenarioEditingActions,
-  ...ParkChangeActions,
-  ...RideActions,
-  ...GuestActions,
-  ...StaffActions,
-  ...NetworkActions,
-  ...OtherActions,
-  ...ParkActions,
+export const hookActions = [
+  ...landscapeActions,
+  ...sceneryActions,
+  ...scenarioEditingActions,
+  ...parkChangeActions,
+  ...rideActions,
+  ...guestActions,
+  ...staffActions,
+  ...networkActions,
+  ...otherActions,
+  ...parkActions,
 ] as const;
 
-type HookAction = (typeof HookActions)[number];
+export type LandscapeAction = (typeof landscapeActions)[number];
+export type SceneryAction = (typeof sceneryActions)[number];
+export type ScenarioEditingAction = (typeof scenarioEditingActions)[number];
+export type ParkChangeAction = (typeof parkChangeActions)[number];
+export type RideAction = (typeof rideActions)[number];
+export type GuestAction = (typeof guestActions)[number];
+export type StaffAction = (typeof staffActions)[number];
+export type NetworkAction = (typeof networkActions)[number];
+export type OtherAction = (typeof otherActions)[number];
+export type ParkAction = (typeof parkActions)[number];
+export type HookAction = (typeof hookActions)[number];
+
+export type ExtendedActionType =
+  | LandscapeAction
+  | SceneryAction
+  | ScenarioEditingAction
+  | ParkChangeAction
+  | RideAction
+  | GuestAction
+  | StaffAction
+  | NetworkAction
+  | OtherAction
+  | ParkAction
+  | HookAction;
+
+export type EventCast<
+  TArgs extends object = object,
+  TResult extends GameActionResult = GameActionResult
+> = GameActionEventArgs<TArgs> & {
+  action: HookAction;
+  result: Required<TResult>;
+};

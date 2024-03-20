@@ -1,6 +1,7 @@
 import { analytics } from "openrct2-analytics-sdk";
+import { ExtendedActionType } from "../hooks/actions";
 
-type CallbackMap = Record<ActionType, (args: GameActionEventArgs) => void>;
+type CallbackMap = Record<ExtendedActionType, (args: GameActionEventArgs) => void>;
 
 const trackEvent = (title: string, data: GameActionEventArgs) => {
   analytics.track({
@@ -9,251 +10,314 @@ const trackEvent = (title: string, data: GameActionEventArgs) => {
   });
 };
 
-const callbackMap: CallbackMap = {
+export const callbackMap: CallbackMap = {
   balloonpress: (args) => {
     trackEvent("Balloon press", args);
   },
-  bannerplace: function (args: GameActionEventArgs<object>): void {
+  bannerplace: function (args): void {
     trackEvent("Banner place", args);
   },
-  bannerremove: function (args: GameActionEventArgs<object>): void {
+  bannerremove: function (args): void {
     trackEvent("Banner remove", args);
   },
-  bannersetcolour: function (args: GameActionEventArgs<object>): void {
+  bannersetcolour: function (args): void {
     trackEvent("Banner set colour", args);
   },
-  bannersetname: function (args: GameActionEventArgs<object>): void {
+  bannersetname: function (args): void {
     trackEvent("Banner set name", args);
   },
-  bannersetstyle: function (args: GameActionEventArgs<object>): void {
+  bannersetstyle: function (args): void {
     trackEvent("Banner set style", args);
   },
-  cheatset: function (args: GameActionEventArgs<object>): void {
+  cheatset: function (args): void {
     trackEvent("Cheat set", args);
   },
-  clearscenery: function (args: GameActionEventArgs<object>): void {
+  clearscenery: function (args): void {
     trackEvent("Clear scenery", args);
   },
-  climateset: function (args: GameActionEventArgs<object>): void {
+  climateset: function (args): void {
     trackEvent("Climate set", args);
   },
-  footpathadditionplace: function (args: GameActionEventArgs<object>): void {
+  footpathadditionplace: function (args): void {
     trackEvent("Footpath addition place", args);
   },
-  footpathadditionremove: function (args: GameActionEventArgs<object>): void {
+  footpathadditionremove: function (args): void {
     trackEvent("Footpath addition remove", args);
   },
-  footpathplace: function (args: GameActionEventArgs<object>): void {
+  footpathplace: function (args): void {
     trackEvent("Footpath place", args);
   },
-  footpathlayoutplace: function (args: GameActionEventArgs<object>): void {
+  footpathlayoutplace: function (args): void {
     trackEvent("Footpath layout place", args);
   },
-  footpathremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  footpathremove: function (args): void {
+    trackEvent("Footpath removed", args);
   },
-  gamesetspeed: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  gamesetspeed: function (args): void {
+    trackEvent("Game set speed", args);
   },
-  guestsetflags: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  guestsetflags: function (args): void {
+    trackEvent("Guest set flags", args);
   },
-  guestsetname: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  guestsetname: function (args): void {
+    trackEvent("Guest set name", args);
   },
-  landbuyrights: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  landbuyrights: function (args): void {
+    trackEvent("Land buy rights", args);
   },
-  landlower: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  landlower: function (args): void {
+    trackEvent("Land lower", args);
   },
-  landraise: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  landraise: function (args): void {
+    trackEvent("Land raise", args);
   },
-  landsetheight: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  landsetheight: function (args): void {
+    trackEvent("Land set height", args);
   },
-  landsetrights: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  landsetrights: function (args): void {
+    trackEvent("Land set rights", args);
   },
-  landsmooth: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  landsmooth: function (args): void {
+    trackEvent("Land smooth", args);
   },
-  largesceneryplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  largesceneryplace: function (args): void {
+    trackEvent("Large scenery place", args);
   },
-  largesceneryremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  largesceneryremove: function (args): void {
+    trackEvent("Large scenery remove", args);
   },
-  largescenerysetcolour: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  largescenerysetcolour: function (args): void {
+    trackEvent("Large scenery set colour", args);
   },
-  loadorquit: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  loadorquit: function (args): void {
+    trackEvent("Load or quit", args);
   },
-  mapchangesize: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  mapchangesize: function (args): void {
+    trackEvent("Map change size", args);
   },
-  mazeplacetrack: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  mazeplacetrack: function (args): void {
+    trackEvent("Maze place track", args);
   },
-  mazesettrack: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  mazesettrack: function (args): void {
+    trackEvent("Maze set track", args);
   },
-  networkmodifygroup: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  networkmodifygroup: function (args): void {
+    trackEvent("Network modify group", args);
   },
-  parkentranceplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parkentranceplace: function (args): void {
+    trackEvent("Park entrance place", args);
   },
-  parkentranceremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parkentranceremove: function (args): void {
+    trackEvent("Park entrance remove", args);
   },
-  parkmarketing: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parkmarketing: function (args): void {
+    trackEvent("Park marketing", args);
   },
-  parksetdate: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parksetdate: function (args): void {
+    trackEvent("Park set date", args);
   },
-  parksetentrancefee: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parksetentrancefee: function (args): void {
+    trackEvent("Park set entrance fee", args);
   },
-  parksetloan: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parksetloan: function (args): void {
+    trackEvent("Park set loan", args);
   },
-  parksetname: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parksetname: function (args): void {
+    trackEvent("Park set name", args);
   },
-  parksetparameter: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parksetparameter: function (args): void {
+    trackEvent("Park set parameter", args);
   },
-  parksetresearchfunding: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  parksetresearchfunding: function (args): void {
+    trackEvent("Park set research funding", args);
   },
-  pausetoggle: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  pausetoggle: function (args): void {
+    trackEvent("Pause toggle", args);
   },
-  peeppickup: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  peeppickup: function (args): void {
+    trackEvent("Peep pickup", args);
   },
-  peepspawnplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  peepspawnplace: function (args): void {
+    trackEvent("Peep spawn place", args);
   },
-  playerkick: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  playerkick: function (args): void {
+    trackEvent("Player kick", args);
   },
-  playersetgroup: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  playersetgroup: function (args): void {
+    trackEvent("Player set group", args);
   },
-  ridecreate: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridecreate: function (args): void {
+    trackEvent("Ride create", args);
   },
-  ridedemolish: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridedemolish: function (args): void {
+    trackEvent("Ride demolish", args);
   },
-  rideentranceexitplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  rideentranceexitplace: function (args): void {
+    trackEvent("Ride entrance exit place", args);
   },
-  rideentranceexitremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  rideentranceexitremove: function (args): void {
+    trackEvent("Ride entrance exit remove", args);
   },
-  ridefreezerating: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridefreezerating: function (args): void {
+    trackEvent("Ride freeze rating", args);
   },
-  ridesetappearance: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetappearance: function (args): void {
+    trackEvent("Ride set appearance", args);
   },
-  ridesetcolourscheme: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetcolourscheme: function (args): void {
+    trackEvent("Ride set colour scheme", args);
   },
-  ridesetname: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetname: function (args): void {
+    trackEvent("Ride set name", args);
   },
-  ridesetprice: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetprice: function (args): void {
+    trackEvent("Ride set price", args);
   },
-  ridesetsetting: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetsetting: function (args): void {
+    trackEvent("Ride set setting", args);
   },
-  ridesetstatus: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetstatus: function (args): void {
+    trackEvent("Ride set status", args);
   },
-  ridesetvehicle: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  ridesetvehicle: function (args): void {
+    trackEvent("Ride set vehicle", args);
   },
-  scenariosetsetting: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  scenariosetsetting: function (args): void {
+    trackEvent("Scenario set setting", args);
   },
-  signsetname: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  signsetname: function (args): void {
+    trackEvent("Sign set name", args);
   },
-  signsetstyle: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  signsetstyle: function (args): void {
+    trackEvent("Sign set style", args);
   },
-  smallsceneryplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  smallsceneryplace: function (args): void {
+    trackEvent("Small scenery place", args);
   },
-  smallsceneryremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  smallsceneryremove: function (args): void {
+    trackEvent("Small scenery remove", args);
   },
-  smallscenerysetcolour: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  smallscenerysetcolour: function (args): void {
+    trackEvent("Small scenery set colour", args);
   },
-  stafffire: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  stafffire: function (args): void {
+    trackEvent("Staff fire", args);
   },
-  staffhire: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  staffhire: function (args): void {
+    trackEvent("Staff hire", args);
   },
-  staffsetcolour: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  staffsetcolour: function (args): void {
+    trackEvent("Staff set colour", args);
   },
-  staffsetcostume: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  staffsetcostume: function (args): void {
+    trackEvent("Staff set costume", args);
   },
-  staffsetname: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  staffsetname: function (args): void {
+    trackEvent("Staff set name", args);
   },
-  staffsetorders: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  staffsetorders: function (args): void {
+    trackEvent("Staff set orders", args);
   },
-  staffsetpatrolarea: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  staffsetpatrolarea: function (args): void {
+    trackEvent("Staff set patrol area", args);
   },
-  surfacesetstyle: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  surfacesetstyle: function (args): void {
+    trackEvent("Surface set style", args);
   },
-  tilemodify: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  tilemodify: function (args): void {
+    trackEvent("Tile modify", args);
   },
-  trackdesign: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  trackplace: function (args): void {
+    trackEvent("Track place", args);
   },
-  trackplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  trackremove: function (args): void {
+    trackEvent("Track remove", args);
   },
-  trackremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  tracksetbrakespeed: function (args): void {
+    trackEvent("Track set brake speed", args);
   },
-  tracksetbrakespeed: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  wallplace: function (args): void {
+    trackEvent("Wall place", args);
   },
-  wallplace: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  wallremove: function (args): void {
+    trackEvent("Wall remove", args);
   },
-  wallremove: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  wallsetcolour: function (args): void {
+    trackEvent("Wall set colour", args);
   },
-  wallsetcolour: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  waterlower: function (args): void {
+    trackEvent("Water lower", args);
   },
-  waterlower: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  waterraise: function (args): void {
+    trackEvent("Water raise", args);
   },
-  waterraise: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  watersetheight: function (args): void {
+    trackEvent("Water set height", args);
   },
-  watersetheight: function (args: GameActionEventArgs<object>): void {
-    throw new Error("Function not implemented.");
+  mapchanged_scenarioEditor: function (args): void {
+    trackEvent("Map changed scenario editor", args);
+  },
+  mapchanged_trackDesigner: function (args): void {
+    trackEvent("Map changed track designer", args);
+  },
+  mapchanged_trackManager: function (args): void {
+    trackEvent("Map changed track manager", args);
+  },
+  changemapsize: function (args): void {
+    trackEvent("Change map size", args);
+  },
+  mapchanged_titleScreen: function (args): void {
+    trackEvent("Map changed title screen", args);
+  },
+  mapchanged_inGame: function (args): void {
+    trackEvent("Map changed in game", args);
+  },
+  mapsaved: function (args): void {
+    trackEvent("Map saved", args);
+  },
+  "ride.ratings.calculate": function (args): void {
+    trackEvent("Ride ratings calculate", args);
+  },
+  stallcreate: function (args): void {
+    trackEvent("Stall create", args);
+  },
+  stalldemolish: function (args): void {
+    trackEvent("Stall demolish", args);
+  },
+  stallsetname: function (args): void {
+    trackEvent("Stall set name", args);
+  },
+  stallsetprice: function (args): void {
+    trackEvent("Stall set price", args);
+  },
+  stallsetsetting: function (args): void {
+    trackEvent("Stall set setting", args);
+  },
+  stallopen: function (args): void {
+    trackEvent("Stall open", args);
+  },
+  stallclose: function (args): void {
+    trackEvent("Stall close", args);
+  },
+  "vehicle.crash": function (args): void {
+    trackEvent("Vehicle crash", args);
+  },
+  peepsetdown: function (args): void {
+    trackEvent("Peep set down", args);
+  },
+  "guest.generated": function (args): void {
+    trackEvent("Guest generated", args);
+  },
+  "network.chat": function (args): void {
+    trackEvent("Network chat", args);
+  },
+  "network.action": function (args): void {
+    trackEvent("Network action", args);
+  },
+  "network.join": function (args): void {
+    trackEvent("Network join", args);
+  },
+  "network.leave": function (args): void {
+    trackEvent("Network leave", args);
   },
 };

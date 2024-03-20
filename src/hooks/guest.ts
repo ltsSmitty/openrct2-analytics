@@ -1,3 +1,5 @@
+import { GuestAction } from "./actions";
+
 const onGuestGenerated = (callback: TCallback) => {
   return context.subscribe("guest.generation", (data) => {
     const args = {
@@ -24,10 +26,7 @@ const onPeepSetDown = (callback: TCallback) => {
   });
 };
 
-export const onGuestEvent = <T extends GuestAction>(
-  guestAction: T,
-  callback: TCallback,
-) => {
+export const onGuestEvent = <T extends GuestAction>(guestAction: T, callback: TCallback) => {
   switch (guestAction) {
     case "peeppickup":
       return onPeepPickup(callback);

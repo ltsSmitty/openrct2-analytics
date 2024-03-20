@@ -1163,7 +1163,7 @@ declare global {
     subscribe(hook: "action.query", callback: (e: GameActionEventArgs) => void): IDisposable;
     subscribe<T extends GameActionArgs>(
       hook: "action.execute",
-      callback: (e: EventCast<T>) => void
+      callback: (e: GameActionEventArgs<T>) => void
     ): IDisposable;
     subscribe(hook: "interval.tick", callback: () => void): IDisposable;
     subscribe(hook: "interval.day", callback: () => void): IDisposable;
