@@ -1,6 +1,6 @@
 export const onParkAction = <T extends ParkAction>(
   parkAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   return context.subscribe(
     "action.execute",
@@ -8,6 +8,6 @@ export const onParkAction = <T extends ParkAction>(
       if (data.action === parkAction && (data.args as any).flags <= 0) {
         callback(data);
       }
-    }
+    },
   );
 };

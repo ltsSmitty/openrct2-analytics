@@ -40,7 +40,7 @@ const onNetworkLeave = (callback: TCallback) => {
 
 export const onNetworkChange = <T extends NetworkAction>(
   networkAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (networkAction) {
     case "network.chat":
@@ -58,7 +58,7 @@ export const onNetworkChange = <T extends NetworkAction>(
           if (data.action === networkAction && (data.args as any).flags <= 0) {
             callback(data);
           }
-        }
+        },
       );
   }
 };

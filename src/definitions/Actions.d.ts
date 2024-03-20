@@ -148,7 +148,7 @@ type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
  */
 type EventCast<
   TArgs extends object = object,
-  TResult extends GameActionResult = GameActionResult
+  TResult extends GameActionResult = GameActionResult,
 > = GameActionEventArgs<TArgs> & {
   action: HookAction;
   result: Required<TResult>;

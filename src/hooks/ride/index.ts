@@ -6,7 +6,7 @@ import { onVehicleCrash } from "./vehicleCrash";
 
 export const onRideChange = <T extends RideAction>(
   rideAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (rideAction) {
     case "mazeplacetrack":
@@ -36,7 +36,7 @@ export const onRideChange = <T extends RideAction>(
             // console.log(`tracking other ride action`, data.action);
             callback(data);
           }
-        }
+        },
       );
   }
 };

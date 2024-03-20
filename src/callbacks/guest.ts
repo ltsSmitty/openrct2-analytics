@@ -1,6 +1,6 @@
 import { analytics } from "openrct2-analytics-sdk";
 export const guestGeneratedCallback = (
-  args: EventCast<GuestGenerationArgs>
+  args: EventCast<GuestGenerationArgs>,
 ) => {
   analytics.track({
     name: "Guest generated",
@@ -65,7 +65,7 @@ export const staffSetNameCallback = (args: EventCast<StaffSetNameArgs>) => {
 };
 
 export const staffSetCostumeCallback = (
-  args: EventCast<StaffSetCostumeArgs>
+  args: EventCast<StaffSetCostumeArgs>,
 ) => {
   analytics.track({
     name: "Staff costume set",
@@ -81,7 +81,7 @@ export const staffSetOrdersCallback = (args: EventCast<StaffSetOrdersArgs>) => {
 };
 
 export const staffSetPatrolAreaCallback = (
-  args: EventCast<StaffSetPatrolAreaArgs>
+  args: EventCast<StaffSetPatrolAreaArgs>,
 ) => {
   analytics.track({
     name: "Staff patrol area set",

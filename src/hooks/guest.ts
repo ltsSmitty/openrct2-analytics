@@ -26,7 +26,7 @@ const onPeepSetDown = (callback: TCallback) => {
 
 export const onGuestEvent = <T extends GuestAction>(
   guestAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (guestAction) {
     case "peeppickup":

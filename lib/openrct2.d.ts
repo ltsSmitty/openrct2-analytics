@@ -300,7 +300,7 @@ declare global {
     registerAction<T = object>(
       action: string,
       query: (args: GameActionEventArgs<T>) => GameActionResult,
-      execute: (args: GameActionEventArgs<T>) => GameActionResult
+      execute: (args: GameActionEventArgs<T>) => GameActionResult,
     ): void;
 
     /**
@@ -313,422 +313,422 @@ declare global {
     queryAction(
       action: string,
       args: object,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: ActionType,
       args: object,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "balloonpress",
       args: BalloonPressArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "bannerplace",
       args: BannerPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "bannerremove",
       args: BannerRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "bannersetcolour",
       args: BannerSetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "bannersetname",
       args: BannerSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "bannersetstyle",
       args: BannerSetStyleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "cheatset",
       args: CheatSetArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "clearscenery",
       args: ClearSceneryArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "climateset",
       args: ClimateSetArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "footpathadditionplace",
       args: FootpathAdditionPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "footpathadditionremove",
       args: FootpathAdditionRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "footpathplace",
       args: FootpathPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "footpathlayoutplace",
       args: FootpathLayoutPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "footpathremove",
       args: FootpathRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "gamesetspeed",
       args: GameSetSpeedArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "guestsetflags",
       args: GuestSetFlagsArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "guestsetname",
       args: GuestSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "landbuyrights",
       args: LandBuyRightsArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "landlower",
       args: LandLowerArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "landraise",
       args: LandRaiseArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "landsetheight",
       args: LandSetHeightArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "landsetrights",
       args: LandSetRightsArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "landsmooth",
       args: LandSmoothArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "largesceneryplace",
       args: LargeSceneryPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "largesceneryremove",
       args: LargeSceneryRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "largescenerysetcolour",
       args: LargeScenerySetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "loadorquit",
       args: LoadOrQuitArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "mapchangesize",
       args: MapChangeSizeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "mazeplacetrack",
       args: MazePlaceTrackArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "mazesettrack",
       args: MazeSetTrackArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "networkmodifygroup",
       args: NetworkModifyGroupArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parkentranceplace",
       args: ParkEntrancePlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parkentranceremove",
       args: ParkEntranceRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parkmarketing",
       args: ParkMarketingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parksetdate",
       args: ParkSetDateArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parksetentrancefee",
       args: ParkSetEntranceFeeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parksetloan",
       args: ParkSetLoanArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parksetname",
       args: ParkSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parksetparameter",
       args: ParkSetParameterArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "parksetresearchfunding",
       args: ParkSetResearchFundingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "pausetoggle",
       args: PauseToggleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "peeppickup",
       args: PeepPickupArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "peepspawnplace",
       args: PeepSpawnPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "playerkick",
       args: PlayerKickArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "playersetgroup",
       args: PlayerSetGroupArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridecreate",
       args: RideCreateArgs,
-      callback?: (result: RideCreateActionResult) => void
+      callback?: (result: RideCreateActionResult) => void,
     ): void;
     queryAction(
       action: "ridedemolish",
       args: RideDemolishArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "rideentranceexitplace",
       args: RideEntranceExitPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "rideentranceexitremove",
       args: RideEntranceExitRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridefreezerating",
       args: RideFreezeRatingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetappearance",
       args: RideSetAppearanceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetcolourscheme",
       args: RideSetColourSchemeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetname",
       args: RideSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetprice",
       args: RideSetPriceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetsetting",
       args: RideSetSettingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetstatus",
       args: RideSetStatusArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "ridesetvehicle",
       args: RideSetVehicleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "scenariosetsetting",
       args: ScenarioSetSettingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "signsetname",
       args: SignSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "signsetstyle",
       args: SignSetStyleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "smallsceneryplace",
       args: SmallSceneryPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "smallsceneryremove",
       args: SmallSceneryRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "smallscenerysetcolour",
       args: SmallScenerySetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "stafffire",
       args: StaffFireArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "staffhire",
       args: StaffHireArgs,
-      callback?: (result: StaffHireNewActionResult) => void
+      callback?: (result: StaffHireNewActionResult) => void,
     ): void;
     queryAction(
       action: "staffsetcolour",
       args: StaffSetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "staffsetcostume",
       args: StaffSetCostumeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "staffsetname",
       args: StaffSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "staffsetorders",
       args: StaffSetOrdersArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "staffsetpatrolarea",
       args: StaffSetPatrolAreaArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "surfacesetstyle",
       args: SurfaceSetStyleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "tilemodify",
       args: TileModifyArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "trackdesign",
       args: TrackDesignArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "trackplace",
       args: TrackPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "trackremove",
       args: TrackRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "tracksetbrakespeed",
       args: TrackSetBrakeSpeedArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "wallplace",
       args: WallPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "wallremove",
       args: WallRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "wallsetcolour",
       args: WallSetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "waterlower",
       args: WaterLowerArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "waterraise",
       args: WaterRaiseArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     queryAction(
       action: "watersetheight",
       args: WaterSetHeightArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
 
     /**
@@ -741,422 +741,422 @@ declare global {
     executeAction(
       action: string,
       args: object,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: ActionType,
       args: object,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "balloonpress",
       args: BalloonPressArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "bannerplace",
       args: BannerPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "bannerremove",
       args: BannerRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "bannersetcolour",
       args: BannerSetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "bannersetname",
       args: BannerSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "bannersetstyle",
       args: BannerSetStyleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "cheatset",
       args: CheatSetArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "clearscenery",
       args: ClearSceneryArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "climateset",
       args: ClimateSetArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "footpathadditionplace",
       args: FootpathAdditionPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "footpathadditionremove",
       args: FootpathAdditionRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "footpathplace",
       args: FootpathPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "footpathlayoutplace",
       args: FootpathLayoutPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "footpathremove",
       args: FootpathRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "gamesetspeed",
       args: GameSetSpeedArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "guestsetflags",
       args: GuestSetFlagsArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "guestsetname",
       args: GuestSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "landbuyrights",
       args: LandBuyRightsArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "landlower",
       args: LandLowerArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "landraise",
       args: LandRaiseArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "landsetheight",
       args: LandSetHeightArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "landsetrights",
       args: LandSetRightsArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "landsmooth",
       args: LandSmoothArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "largesceneryplace",
       args: LargeSceneryPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "largesceneryremove",
       args: LargeSceneryRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "largescenerysetcolour",
       args: LargeScenerySetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "loadorquit",
       args: LoadOrQuitArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "mapchangesize",
       args: MapChangeSizeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "mazeplacetrack",
       args: MazePlaceTrackArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "mazesettrack",
       args: MazeSetTrackArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "networkmodifygroup",
       args: NetworkModifyGroupArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parkentranceplace",
       args: ParkEntrancePlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parkentranceremove",
       args: ParkEntranceRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parkmarketing",
       args: ParkMarketingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parksetdate",
       args: ParkSetDateArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parksetentrancefee",
       args: ParkSetEntranceFeeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parksetloan",
       args: ParkSetLoanArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parksetname",
       args: ParkSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parksetparameter",
       args: ParkSetParameterArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "parksetresearchfunding",
       args: ParkSetResearchFundingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "pausetoggle",
       args: PauseToggleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "peeppickup",
       args: PeepPickupArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "peepspawnplace",
       args: PeepSpawnPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "playerkick",
       args: PlayerKickArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "playersetgroup",
       args: PlayerSetGroupArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridecreate",
       args: RideCreateArgs,
-      callback?: (result: RideCreateActionResult) => void
+      callback?: (result: RideCreateActionResult) => void,
     ): void;
     executeAction(
       action: "ridedemolish",
       args: RideDemolishArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "rideentranceexitplace",
       args: RideEntranceExitPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "rideentranceexitremove",
       args: RideEntranceExitRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridefreezerating",
       args: RideFreezeRatingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetappearance",
       args: RideSetAppearanceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetcolourscheme",
       args: RideSetColourSchemeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetname",
       args: RideSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetprice",
       args: RideSetPriceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetsetting",
       args: RideSetSettingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetstatus",
       args: RideSetStatusArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "ridesetvehicle",
       args: RideSetVehicleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "scenariosetsetting",
       args: ScenarioSetSettingArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "signsetname",
       args: SignSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "signsetstyle",
       args: SignSetStyleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "smallsceneryplace",
       args: SmallSceneryPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "smallsceneryremove",
       args: SmallSceneryRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "smallscenerysetcolour",
       args: SmallScenerySetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "stafffire",
       args: StaffFireArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "staffhire",
       args: StaffHireArgs,
-      callback?: (result: StaffHireNewActionResult) => void
+      callback?: (result: StaffHireNewActionResult) => void,
     ): void;
     executeAction(
       action: "staffsetcolour",
       args: StaffSetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "staffsetcostume",
       args: StaffSetCostumeArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "staffsetname",
       args: StaffSetNameArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "staffsetorders",
       args: StaffSetOrdersArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "staffsetpatrolarea",
       args: StaffSetPatrolAreaArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "surfacesetstyle",
       args: SurfaceSetStyleArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "tilemodify",
       args: TileModifyArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "trackdesign",
       args: TrackDesignArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "trackplace",
       args: TrackPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "trackremove",
       args: TrackRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "tracksetbrakespeed",
       args: TrackSetBrakeSpeedArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "wallplace",
       args: WallPlaceArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "wallremove",
       args: WallRemoveArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "wallsetcolour",
       args: WallSetColourArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "waterlower",
       args: WaterLowerArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "waterraise",
       args: WaterRaiseArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
     executeAction(
       action: "watersetheight",
       args: WaterSetHeightArgs,
-      callback?: (result: GameActionResult) => void
+      callback?: (result: GameActionResult) => void,
     ): void;
 
     /**
@@ -1166,45 +1166,45 @@ declare global {
 
     subscribe(
       hook: "action.query",
-      callback: (e: GameActionEventArgs) => void
+      callback: (e: GameActionEventArgs) => void,
     ): IDisposable;
     subscribe<T extends object>(
       hook: "action.execute",
-      callback: (e: EventCast<T>) => void
+      callback: (e: EventCast<T>) => void,
     ): IDisposable;
     subscribe(hook: "interval.tick", callback: () => void): IDisposable;
     subscribe(hook: "interval.day", callback: () => void): IDisposable;
     subscribe(
       hook: "network.chat",
-      callback: (e: NetworkChatEventArgs) => void
+      callback: (e: NetworkChatEventArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "network.authenticate",
-      callback: (e: NetworkAuthenticateEventArgs) => void
+      callback: (e: NetworkAuthenticateEventArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "network.join",
-      callback: (e: NetworkEventArgs) => void
+      callback: (e: NetworkEventArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "network.leave",
-      callback: (e: NetworkEventArgs) => void
+      callback: (e: NetworkEventArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "ride.ratings.calculate",
-      callback: (e: RideRatingsCalculateArgs) => void
+      callback: (e: RideRatingsCalculateArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "action.location",
-      callback: (e: ActionLocationArgs) => void
+      callback: (e: ActionLocationArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "guest.generation",
-      callback: (e: GuestGenerationArgs) => void
+      callback: (e: GuestGenerationArgs) => void,
     ): IDisposable;
     subscribe(
       hook: "vehicle.crash",
-      callback: (e: VehicleCrashArgs) => void
+      callback: (e: VehicleCrashArgs) => void,
     ): IDisposable;
     subscribe(hook: "map.save", callback: () => void): IDisposable;
     subscribe(hook: "map.change", callback: () => void): IDisposable;
@@ -2166,7 +2166,7 @@ declare global {
      */
     getTrackIterator(
       location: CoordsXY,
-      elementIndex: number
+      elementIndex: number,
     ): TrackIterator | null;
   }
 
@@ -3011,7 +3011,7 @@ declare global {
      */
     getSubpositions(
       subpositionType: number,
-      direction: Direction
+      direction: Direction,
     ): TrackSubposition[];
   }
 
@@ -5653,7 +5653,7 @@ declare global {
     draw(
       id: number,
       size: ScreenSize,
-      callback: (g: GraphicsContext) => void
+      callback: (g: GraphicsContext) => void,
     ): void;
   }
 

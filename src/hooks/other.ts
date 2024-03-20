@@ -1,6 +1,6 @@
 export const onOtherAction = <T extends OtherAction>(
   otherAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (otherAction) {
     default:
@@ -10,7 +10,7 @@ export const onOtherAction = <T extends OtherAction>(
           if (data.action === otherAction && (data.args as any).flags <= 0) {
             callback(data);
           }
-        }
+        },
       );
   }
 };

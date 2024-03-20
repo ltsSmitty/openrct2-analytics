@@ -1,6 +1,6 @@
 export const onChangeScenery = <T extends SceneryAction>(
   sceneryAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (sceneryAction) {
     default:

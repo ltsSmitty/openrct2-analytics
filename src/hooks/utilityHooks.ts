@@ -15,7 +15,7 @@ type RideActionShape = {
 export const useQueryHook = <T extends HookAction>(
   action: T,
   callback: (data: GameActionEventArgs<object>) => void,
-  filterFn?: (action: T, data: GameActionEventArgs<object>) => boolean
+  filterFn?: (action: T, data: GameActionEventArgs<object>) => boolean,
 ) => {
   const queryHook = context.subscribe("action.query", (d) => {
     if (d.action !== action) {
@@ -50,5 +50,5 @@ const rideFilter = (action: RideAction, data: GameActionEventArgs<object>) => {
  */
 export const useRideQueryHook = <T extends RideAction>(
   action: T,
-  cb: TCallback
+  cb: TCallback,
 ) => useQueryHook(action, cb, rideFilter);

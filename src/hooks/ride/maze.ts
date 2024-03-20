@@ -14,7 +14,7 @@ export const onMazeSetTrack = (callback: TCallback): IDisposable =>
       ) {
         callback(data);
       }
-    }
+    },
   );
 
 /**
@@ -32,5 +32,5 @@ export const onMazePlaceTrack = (callback: TCallback): IDisposable =>
       ) {
         callback(data);
       }
-    }
+    },
   );

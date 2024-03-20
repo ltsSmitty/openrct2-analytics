@@ -29,7 +29,7 @@ const onLoadOrQuit = (callback: TCallback) => {
 
 export const onParkChange = <T extends ParkChangeAction>(
   parkChangeAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (parkChangeAction) {
     case "mapsaved":

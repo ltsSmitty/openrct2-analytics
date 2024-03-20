@@ -8,7 +8,7 @@ const onSurfaceSetStyle = (callback: TCallback) => {
 
 export const onChangeLandscape = <T extends LandscapeAction>(
   sceneryAction: T,
-  callback: TCallback
+  callback: TCallback,
 ) => {
   switch (sceneryAction) {
     case "surfacesetstyle":

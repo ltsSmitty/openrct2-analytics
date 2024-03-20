@@ -16,7 +16,7 @@ let isInTrackedRideCreateLoop: boolean = false;
 
 export const onRideStallCreate = (
   rideCreateCallback?: TCallback,
-  stallCreateCallback?: TCallback
+  stallCreateCallback?: TCallback,
 ) => {
   const rideCreateDemolishHook = context.subscribe("action.execute", (d) => {
     const action = d.action;
@@ -69,7 +69,7 @@ export const onRideStallCreate = (
 
 export const onRideStallDemolish = (
   rideDemolishCallback?: TCallback,
-  stallDemolishCallback?: TCallback
+  stallDemolishCallback?: TCallback,
 ): IDisposable => {
   /** When removing a ride, it's impossible to tell what classifiaction the ride had after it is removed.
    * This forces us to hook into the query and save the ride classification
@@ -129,13 +129,13 @@ export const onRideStallDemolish = (
           ) {
             data.action = "stalldemolish";
             stallDemolishCallback(
-              data as unknown as GameActionEventArgs<object>
+              data as unknown as GameActionEventArgs<object>,
             );
             rideQueriedToRemove = undefined;
           }
         }
       }
-    }
+    },
   );
 
   return {
