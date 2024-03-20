@@ -34,36 +34,28 @@ const onRideStallCreate = (
   rideCreateCallback?: TCallback,
   stallCreateCallback?: TCallback
 ) => {
-  const rideCreateDemolishHook = context.subscribe(
-    "action.execute",
-    (data: GameActionEventArgs<object>) => {
-      const action = data.action as RideAction;
-      if (action !== "ridecreate" && action !== "ridedemolish") return;
+  const rideCreateDemolishHook = context.subscribe("action.execute", (d) => {
+    const data = d as unknown as RideActionShape;
+    const action = data.action;
+    if (action !== "ridecreate" && action !== "ridedemolish") return;
 
-      if (action === "ridedemolish") {
-        console.log(`ride demolish action`, data);
-      }
+    // filter out simulated builds by filtering out flags >= 0
+    if ((data.args as any).flags >= 0) return;
 
-      // filter out simulated builds by filtering out flags >= 0
-      if ((data.args as any).flags >= 0) return;
+    // handle stall/facility creation
+    if (action === "ridecreate") {
+      const classification = map.getRide(data.result.ride).classification;
+      if (classification === "stall" || classification == "facility") {
+        data.action = "stallcreate";
 
-      // handle stall/facility creation
-      if (action === "ridecreate") {
-        const classification = map.getRide(
-          (data.result as any).ride
-        ).classification;
-        if (
-          (classification === "stall" || classification == "facility") &&
-          stallCreateCallback
-        ) {
-          stallCreateCallback(data);
-          return;
+        if (stallCreateCallback) {
+          stallCreateCallback(data as unknown as GameActionEventArgs<object>);
         }
       }
-
+    }
+    if (rideCreateCallback) {
       // handle ride creation/demolish loop
-      // only add the demolish if it's not the same as before
-      addDataToQueue(action, data);
+      addDataToQueue(action, d);
 
       const timebetween =
         rideCreateDemolishQueue[0]?.timeStamp -
@@ -73,22 +65,18 @@ const onRideStallCreate = (
       if (action === "ridecreate")
         if (
           rideCreateDemolishQueue[1]?.action === "demolish" &&
-          // make sure the ride is the same
           rideCreateDemolishQueue[0]?.ride ===
             rideCreateDemolishQueue[1]?.ride &&
-          // it should
           timebetween < 10
         ) {
           // the loop is completed at this point
           isInTrackedRideCreateLoop = false;
         } else {
-          if (rideCreateCallback) {
-            rideCreateCallback(data);
-            isInTrackedRideCreateLoop = true;
-          }
+          rideCreateCallback(d);
+          isInTrackedRideCreateLoop = true;
         }
     }
-  );
+  });
 
   return rideCreateDemolishHook;
 };
@@ -190,20 +178,18 @@ const onRideStallDemolish = (
       data.args.flags <= 0 &&
       rideQueriedToRemove
     ) {
-      console.log(
-        `queue data`,
-        rideCreateDemolishQueue[0]?.action,
-        rideCreateDemolishQueue[1]?.action
-      );
-      console.log(
-        `time between`,
+      const timeBetween =
         rideCreateDemolishQueue[0]?.timeStamp -
-          rideCreateDemolishQueue[1]?.timeStamp
-      );
-      if (rideCreateDemolishQueue[0]?.timeStamp > new Date().getTime() - 10) {
+        rideCreateDemolishQueue[1]?.timeStamp;
+
+      if (timeBetween > 10) {
+        // console.log(`time between events is large`, timeBetween);
         isInTrackedRideCreateLoop = false;
       }
-      console.log(`isInTrackedRideCreateLoop`, isInTrackedRideCreateLoop);
+      // console.log(`isInTrackedRideCreateLoop`, isInTrackedRideCreateLoop);
+
+      // make sure it's a real delete event,
+      // not one that happens during the tracked ride create loop
       if (
         rideDemolishCallback &&
         rideQueriedToRemove.classification === "ride" &&
@@ -256,6 +242,7 @@ export const onRideChange = <T extends RideAction>(
         (data: GameActionEventArgs<object>) => {
           // todo see if there's a better way than flags <= 0
           if (data.action === rideAction && (data.args as any).flags < 0) {
+            console.log(`tracking other ride action`, data.action);
             callback(data);
           }
         }
