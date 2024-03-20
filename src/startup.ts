@@ -1,6 +1,6 @@
 import { analytics } from "openrct2-analytics-sdk";
 import * as window from "./ui/window";
-import { onRideChange } from "./hooks/ride";
+import { onRideChange } from "./hooks/ride/";
 
 export function startup() {
   analytics.init({ pluginName: "analytics-core" });
@@ -14,13 +14,13 @@ export function startup() {
   // onRideChange("rideentranceexitplace", cb);
   // onRideChange("rideentranceexitremove", cb);
   // onRideChange("ridefreezerating", cb);
-  // onRideChange("ride.ratings.calculate", cb);
+  onRideChange("ride.ratings.calculate", cb);
   // onRideChange("ridesetappearance", cb);
   // onRideChange("ridesetcolourscheme", cb);
   // onRideChange("ridesetname", cb);
   // onRideChange("ridesetprice", cb);
-  // onRideChange("ridesetsetting", cb);
-  // onRideChange("ridesetstatus", cb);
+  onRideChange("ridesetsetting", cb);
+  onRideChange("ridesetstatus", cb);
   // onRideChange("ridesetvehicle", cb);
   // onRideChange("trackdesign", cb);
   // onRideChange("trackplace", cb);

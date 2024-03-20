@@ -1,24 +1,7 @@
-import { useRideQueryHook } from "./utilityHooks";
-
-/** Utility type to make typing easier in hooks */
-type RideActionShape = {
-  action: RideAction;
-  args: { flags: number; ride: number };
-  result: { ride: number };
-};
-
-const onRideRatingsCalculate = (callback: TCallback) => {
-  return context.subscribe("ride.ratings.calculate", (data) => {
-    const args = {
-      action: "ride.ratings.calculate",
-      args: data,
-    } as GameActionEventArgs<object>;
-    callback(args);
-  });
-};
+import { useRideQueryHook } from "../utilityHooks";
 
 /**
- * The core issue is that placing a tracked ride calls create > demolish > create.
+ * The core issue with tracking ride creation is that placing a tracked ride calls create > demolish > create.
  * This addresses that.
  */
 type RideCreateDemolishQueue = {
@@ -27,16 +10,18 @@ type RideCreateDemolishQueue = {
   timeStamp: number;
 };
 
+/** Set up a queue to track where in the track place process it is */
 const rideCreateDemolishQueue: RideCreateDemolishQueue[] = [];
 let isInTrackedRideCreateLoop: boolean = false;
 
-const onRideStallCreate = (
+export const onRideStallCreate = (
   rideCreateCallback?: TCallback,
   stallCreateCallback?: TCallback
 ) => {
   const rideCreateDemolishHook = context.subscribe("action.execute", (d) => {
     const data = d as unknown as RideActionShape;
     const action = data.action;
+
     if (action !== "ridecreate" && action !== "ridedemolish") return;
 
     // filter out simulated builds by filtering out flags >= 0
@@ -47,12 +32,13 @@ const onRideStallCreate = (
       const classification = map.getRide(data.result.ride).classification;
       if (classification === "stall" || classification == "facility") {
         data.action = "stallcreate";
-
         if (stallCreateCallback) {
           stallCreateCallback(data as unknown as GameActionEventArgs<object>);
         }
       }
     }
+
+    // early returning if no stallCreateCallback wasn't working, so needing to guard here
     if (rideCreateCallback) {
       // handle ride creation/demolish loop
       addDataToQueue(action, d);
@@ -77,74 +63,10 @@ const onRideStallCreate = (
         }
     }
   });
-
   return rideCreateDemolishHook;
 };
 
-const onRideSetSetting = (callback: TCallback) => {
-  let rideSetSettingHistory:
-    | {
-        ride: number;
-        setting: number;
-        value: number;
-      }
-    | undefined;
-
-  let shouldUpdate = false;
-
-  /**
-   * If the user has changed their default inspection interval,
-   * this query will get when placing a prebuilt coaster every tick with that value
-   * This will let it call once, but then ignore it until it changes.
-   */
-  const queryHook = useRideQueryHook("ridesetsetting", (d) => {
-    const data = d as unknown as RideActionShape & {
-      args: { value: number; setting: number };
-    };
-    const rideID = data.args.ride;
-    const ride = map.getRide(rideID);
-
-    const INSPECTION_INTERVAL_ENUM = 5;
-    if (
-      data.args.setting === INSPECTION_INTERVAL_ENUM &&
-      data?.args.value !== ride.inspectionInterval
-    ) {
-      if (
-        !rideSetSettingHistory ||
-        rideSetSettingHistory.value !== data.args.value
-      ) {
-        rideSetSettingHistory = {
-          ride: rideID,
-          setting: data.args.flags,
-          value: data.args.value,
-        };
-        shouldUpdate = true;
-        // callback(data as unknown as GameActionEventArgs<object>);
-      }
-    }
-  });
-
-  const onExecuteHook = context.subscribe("action.execute", (d) => {
-    const data = d as unknown as RideActionShape & {
-      args: { value: number; setting: number };
-    };
-    if (data.action === "ridesetsetting" && data.args.flags <= 0) {
-      if (shouldUpdate) {
-        callback(data as unknown as GameActionEventArgs<object>);
-        shouldUpdate = false;
-      }
-    }
-  });
-
-  return {
-    dispose: () => {
-      queryHook.dispose();
-      onExecuteHook.dispose();
-    },
-  };
-};
-
-const onRideStallDemolish = (
+export const onRideStallDemolish = (
   rideDemolishCallback?: TCallback,
   stallDemolishCallback?: TCallback
 ): IDisposable => {
@@ -217,37 +139,6 @@ const onRideStallDemolish = (
       executeHook.dispose();
     },
   };
-};
-
-export const onRideChange = <T extends RideAction>(
-  rideAction: T,
-  callback: TCallback
-) => {
-  switch (rideAction) {
-    case "ride.ratings.calculate":
-      return onRideRatingsCalculate(callback);
-    case "ridedemolish":
-      return onRideStallDemolish(callback);
-    case "stalldemolish":
-      return onRideStallDemolish(undefined, callback);
-    case "ridecreate":
-      return onRideStallCreate(callback, undefined);
-    case "stallcreate":
-      return onRideStallCreate(undefined, callback);
-    case "ridesetsetting":
-      return onRideSetSetting(callback);
-    default:
-      return context.subscribe(
-        "action.execute",
-        (data: GameActionEventArgs<object>) => {
-          // todo see if there's a better way than flags <= 0
-          if (data.action === rideAction && (data.args as any).flags < 0) {
-            console.log(`tracking other ride action`, data.action);
-            callback(data);
-          }
-        }
-      );
-  }
 };
 
 const addDataToQueue = (

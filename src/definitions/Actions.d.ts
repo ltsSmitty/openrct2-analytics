@@ -141,3 +141,10 @@ type ParkAction =
   | "parksetresearchfunding";
 
 type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
+
+/** Utility type to make typing easier in hooks */
+type RideActionShape = {
+  action: RideAction;
+  args: { flags: number; ride: number };
+  result: { ride: number };
+};
