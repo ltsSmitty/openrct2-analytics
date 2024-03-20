@@ -1,3 +1,5 @@
+import { ParkChangeAction } from "./actions";
+
 type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
 
 const onMapSaved = (callback: TCallback) => {
@@ -29,7 +31,7 @@ const onLoadOrQuit = (callback: TCallback) => {
 
 export const onParkChange = <T extends ParkChangeAction>(
   parkChangeAction: T,
-  callback: TCallback,
+  callback: TCallback
 ) => {
   switch (parkChangeAction) {
     case "mapsaved":

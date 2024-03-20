@@ -1,3 +1,5 @@
+import { LandscapeAction } from "./actions";
+
 const onSurfaceSetStyle = (callback: TCallback) => {
   return context.subscribe("action.execute", (data) => {
     if (data.action === "surfacesetstyle" && data.result.cost !== 0) {
@@ -8,7 +10,7 @@ const onSurfaceSetStyle = (callback: TCallback) => {
 
 export const onChangeLandscape = <T extends LandscapeAction>(
   sceneryAction: T,
-  callback: TCallback,
+  callback: TCallback
 ) => {
   switch (sceneryAction) {
     case "surfacesetstyle":

@@ -1,3 +1,5 @@
+import { SceneryAction } from "./actions";
+
 export const onChangeScenery = <T extends SceneryAction>(
   sceneryAction: T,
   callback: TCallback

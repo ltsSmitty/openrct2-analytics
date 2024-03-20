@@ -1,3 +1,5 @@
+import { ScenarioEditingAction } from "./actions";
+
 const ENTRACE_PLACE_REMOVE_SUCCESS_FLAG = -2147483648;
 
 type TCallback = (args: GameActionEventArgs<object> | undefined) => void;
@@ -60,9 +62,7 @@ type EntranceRemoveEventArgs = GameActionEventArgs & {
   args: ParkEntranceRemoveArgs;
 };
 
-const onParkEntrancePlaced = (
-  callback: (args: EntrancePlaceEventArgs) => void,
-) => {
+const onParkEntrancePlaced = (callback: (args: EntrancePlaceEventArgs) => void) => {
   return context.subscribe("action.execute", (d) => {
     const data = d as EntrancePlaceEventArgs;
     if (
@@ -74,9 +74,7 @@ const onParkEntrancePlaced = (
   });
 };
 
-const onParkEntranceRemoved = (
-  callback: (args: EntranceRemoveEventArgs) => void,
-) => {
+const onParkEntranceRemoved = (callback: (args: EntranceRemoveEventArgs) => void) => {
   return context.subscribe("action.execute", (d) => {
     const data = d as EntranceRemoveEventArgs;
     if (
@@ -90,7 +88,7 @@ const onParkEntranceRemoved = (
 
 export const onScenarioEdit = <T extends ScenarioEditingAction>(
   action: T,
-  callback: TCallback,
+  callback: TCallback
 ) => {
   switch (action) {
     case "peepspawnplace":
@@ -106,13 +104,9 @@ export const onScenarioEdit = <T extends ScenarioEditingAction>(
     case "climateset":
       return onClimateSet(callback);
     case "parkentranceplace":
-      return onParkEntrancePlaced(
-        callback as (args: EntrancePlaceEventArgs) => void,
-      );
+      return onParkEntrancePlaced(callback as (args: EntrancePlaceEventArgs) => void);
     case "parkentranceremove":
-      return onParkEntranceRemoved(
-        callback as (args: EntranceRemoveEventArgs) => void,
-      );
+      return onParkEntranceRemoved(callback as (args: EntranceRemoveEventArgs) => void);
     default:
       return context.subscribe("action.execute", (data) => {
         if (data.action === action) {

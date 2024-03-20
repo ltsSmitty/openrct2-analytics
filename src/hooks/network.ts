@@ -1,3 +1,5 @@
+import { NetworkAction } from "./actions";
+
 const onNetworkChat = (callback: TCallback) => {
   return context.subscribe("network.chat", (data) => {
     const args = {
@@ -40,7 +42,7 @@ const onNetworkLeave = (callback: TCallback) => {
 
 export const onNetworkChange = <T extends NetworkAction>(
   networkAction: T,
-  callback: TCallback,
+  callback: TCallback
 ) => {
   switch (networkAction) {
     case "network.chat":
@@ -52,13 +54,10 @@ export const onNetworkChange = <T extends NetworkAction>(
     case "network.leave":
       return onNetworkLeave(callback);
     default:
-      return context.subscribe(
-        "action.execute",
-        (data: GameActionEventArgs<object>) => {
-          if (data.action === networkAction && (data.args as any).flags <= 0) {
-            callback(data);
-          }
-        },
-      );
+      return context.subscribe("action.execute", (data: GameActionEventArgs<object>) => {
+        if (data.action === networkAction && (data.args as any).flags <= 0) {
+          callback(data);
+        }
+      });
   }
 };

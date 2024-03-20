@@ -1,5 +1,4 @@
 import { analytics } from "openrct2-analytics-sdk";
-import hooks from "./hooks";
 import * as window from "./ui/window";
 
 export function startup() {
