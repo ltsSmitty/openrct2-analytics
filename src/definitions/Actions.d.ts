@@ -92,7 +92,7 @@ type RideAction =
   | "stallsetsetting"
   | "stallopen"
   | "stallclose"
-  | "trackdesign"
+  // | "trackdesign"  // currently unsupported as of 0.4.9
   | "trackplace"
   | "trackremove"
   | "tracksetbrakespeed"
@@ -147,4 +147,12 @@ type RideActionShape = {
   action: RideAction;
   args: { flags: number; ride: number };
   result: { ride: number };
+};
+
+type EventCast<
+  TArgs extends object = object,
+  TResult extends object = object
+> = GameActionEventArgs<TArgs> & {
+  action: RideAction;
+  result: Required<TResult>;
 };

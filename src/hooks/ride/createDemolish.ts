@@ -19,16 +19,17 @@ export const onRideStallCreate = (
   stallCreateCallback?: TCallback
 ) => {
   const rideCreateDemolishHook = context.subscribe("action.execute", (d) => {
-    const data = d as unknown as RideActionShape;
-    const action = data.action;
+    const action = d.action;
 
     if (action !== "ridecreate" && action !== "ridedemolish") return;
 
     // filter out simulated builds by filtering out flags >= 0
-    if ((data.args as any).flags >= 0) return;
+    if ((d.args as any).flags >= 0) return;
 
     // handle stall/facility creation
     if (action === "ridecreate") {
+      const data = d as EventCast<RideCreateArgs, RideCreateActionResult>;
+
       const classification = map.getRide(data.result.ride).classification;
       if (classification === "stall" || classification == "facility") {
         data.action = "stallcreate";
@@ -82,7 +83,7 @@ export const onRideStallDemolish = (
     | undefined;
 
   const queryHook = useRideQueryHook("ridedemolish", (d) => {
-    const data = d as unknown as RideActionShape;
+    const data = d as EventCast<RideDemolishArgs>;
     const rideId = data.args.ride;
     const ride = map.getRide(rideId);
 
@@ -93,10 +94,11 @@ export const onRideStallDemolish = (
   });
 
   const executeHook = context.subscribe("action.execute", (d) => {
-    const data = d as unknown as RideActionShape;
+    const data = d as EventCast<RideDemolishArgs>;
 
     if (
       data.action === "ridedemolish" &&
+      data.args.flags &&
       data.args.flags <= 0 &&
       rideQueriedToRemove
     ) {
@@ -141,10 +143,7 @@ export const onRideStallDemolish = (
   };
 };
 
-const addDataToQueue = (
-  action: RideAction,
-  data: GameActionEventArgs<object>
-) => {
+const addDataToQueue = (action: RideAction, data: GameActionEventArgs) => {
   const queueData = {
     ride:
       action === "ridecreate"
