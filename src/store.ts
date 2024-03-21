@@ -29,16 +29,9 @@ class SubscriptionStore {
   createSubscriptionStore(flatStore?: TFlatSubscriptionStore) {
     // initialize subscriptions with falsey values
     actions.hookActions.forEach((action) => {
+      // console.log(`Creating subscription for ${action}`);
       this.subscriptions[action] = store<boolean>(false);
     });
-
-    // if flatStore is provided, set the subscriptions to the values in the flatStore
-    if (flatStore) {
-      Object.keys(flatStore).forEach((k) => {
-        const key = k as keyof TFlatSubscriptionStore;
-        this.subscriptions[key].set(flatStore[key]);
-      });
-    }
 
     // set the callbacks & IDisposables for each key subscriptions
     Object.keys(this.subscriptions).forEach((k) => {
@@ -55,6 +48,15 @@ class SubscriptionStore {
         this.save();
       });
     });
+
+    // if flatStore is provided, set the subscriptions to the values in the flatStore
+    if (flatStore) {
+      Object.keys(flatStore).forEach((k) => {
+        // console.log(`Setting subscription for ${k} from flatstore`);
+        const key = k as keyof TFlatSubscriptionStore;
+        this.subscriptions[key].set(flatStore[key]);
+      });
+    }
 
     return this.subscriptions;
   }

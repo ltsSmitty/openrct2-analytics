@@ -1,6 +1,6 @@
 import { actions } from "openrct2-extended-hooks";
 import { analyticsToggle } from "../../components/analyticsToggle";
-import { tab, vertical } from "openrct2-flexui";
+import { tab } from "openrct2-flexui";
 
 const statIncreaseIcon: ImageAnimation = {
   frameBase: 5367,
