@@ -1,9 +1,9 @@
 import { analytics } from "openrct2-analytics-sdk";
-import { ExtendedActionType } from "../hooks/actions";
+import { ActionTypes } from "openrct2-extended-hooks";
 
-type CallbackMap = Record<ExtendedActionType, (args: GameActionEventArgs) => void>;
+type CallbackMap = Record<ActionTypes.ExtendedActionType, (args: GameActionEventArgs) => void>;
 
-const trackEvent = (title: string, data: GameActionEventArgs) => {
+const trackEvent = (title: string, data?: GameActionEventArgs) => {
   analytics.track({
     name: title,
     properties: data,
@@ -45,7 +45,7 @@ export const callbackMap: CallbackMap = {
     trackEvent("Footpath addition removed", args);
   },
   footpathplace: function (args): void {
-    trackEvent("Footpath placde", args);
+    trackEvent("Footpath placed", args);
   },
   footpathlayoutplace: function (args): void {
     trackEvent("Footpath layout placed", args);
@@ -91,9 +91,10 @@ export const callbackMap: CallbackMap = {
   },
   loadorquit: function (args): void {
     trackEvent("Load or quit", args);
+    analytics.flush();
   },
   mapchangesize: function (args): void {
-    trackEvent("Map size changed", args);
+    trackEvent("Map size changed");
   },
   mazeplacetrack: function (args): void {
     trackEvent("Maze track placed", args);
@@ -111,163 +112,163 @@ export const callbackMap: CallbackMap = {
     trackEvent("Park entrance removed", args);
   },
   parkmarketing: function (args): void {
-    trackEvent("Park marketing", args);
+    trackEvent("Park marketing purchased", args);
   },
   parksetdate: function (args): void {
-    trackEvent("Park set date", args);
+    trackEvent("Park date set", args);
   },
   parksetentrancefee: function (args): void {
-    trackEvent("Park set entrance fee", args);
+    trackEvent("Park entrance feeset", args);
   },
   parksetloan: function (args): void {
-    trackEvent("Park set loan", args);
+    trackEvent("Park loan set", args);
   },
   parksetname: function (args): void {
-    trackEvent("Park set name", args);
+    trackEvent("Park name set", args);
   },
   parksetparameter: function (args): void {
-    trackEvent("Park set parameter", args);
+    trackEvent("Park parameter set", args);
   },
   parksetresearchfunding: function (args): void {
-    trackEvent("Park set research funding", args);
+    trackEvent("Park research funding set", args);
   },
   pausetoggle: function (args): void {
     trackEvent("Pause toggle", args);
   },
   peeppickup: function (args): void {
-    trackEvent("Peep pickup", args);
+    trackEvent("Peep picked up", args);
   },
   peepspawnplace: function (args): void {
-    trackEvent("Peep spawn place", args);
+    trackEvent("Peep spawn placed", args);
   },
   playerkick: function (args): void {
-    trackEvent("Player kick", args);
+    trackEvent("Player kicked", args);
   },
   playersetgroup: function (args): void {
-    trackEvent("Player set group", args);
+    trackEvent("Player group set", args);
   },
   ridecreate: function (args): void {
-    trackEvent("Ride create", args);
+    trackEvent("Ride created", args);
   },
   ridedemolish: function (args): void {
-    trackEvent("Ride demolish", args);
+    trackEvent("Ride demolished", args);
   },
   rideentranceexitplace: function (args): void {
-    trackEvent("Ride entrance exit place", args);
+    trackEvent("Ride entrance/exit placed", args);
   },
   rideentranceexitremove: function (args): void {
-    trackEvent("Ride entrance exit remove", args);
+    trackEvent("Ride entrance/exit removed", args);
   },
   ridefreezerating: function (args): void {
-    trackEvent("Ride freeze rating", args);
+    trackEvent("Ride rating frozen", args);
   },
   ridesetappearance: function (args): void {
-    trackEvent("Ride set appearance", args);
+    trackEvent("Ride appearance set", args);
   },
   ridesetcolourscheme: function (args): void {
-    trackEvent("Ride set colour scheme", args);
+    trackEvent("Ride colour scheme set", args);
   },
   ridesetname: function (args): void {
-    trackEvent("Ride set name", args);
+    trackEvent("Ride name set", args);
   },
   ridesetprice: function (args): void {
-    trackEvent("Ride set price", args);
+    trackEvent("Ride price set", args);
   },
   ridesetsetting: function (args): void {
-    trackEvent("Ride set setting", args);
+    trackEvent("Ride setting set", args);
   },
   ridesetstatus: function (args): void {
-    trackEvent("Ride set status", args);
+    trackEvent("Ride status set", args);
   },
   ridesetvehicle: function (args): void {
-    trackEvent("Ride set vehicle", args);
+    trackEvent("Ride vehicle set", args);
   },
   scenariosetsetting: function (args): void {
-    trackEvent("Scenario set setting", args);
+    trackEvent("Scenario setting set", args);
   },
   signsetname: function (args): void {
-    trackEvent("Sign set name", args);
+    trackEvent("Sign name set", args);
   },
   signsetstyle: function (args): void {
-    trackEvent("Sign set style", args);
+    trackEvent("Sign style set", args);
   },
   smallsceneryplace: function (args): void {
-    trackEvent("Small scenery place", args);
+    trackEvent("Small scenery placed", args);
   },
   smallsceneryremove: function (args): void {
-    trackEvent("Small scenery remove", args);
+    trackEvent("Small scenery removed", args);
   },
   smallscenerysetcolour: function (args): void {
-    trackEvent("Small scenery set colour", args);
+    trackEvent("Small scenery colour set", args);
   },
   stafffire: function (args): void {
-    trackEvent("Staff fire", args);
+    trackEvent("Staff fired", args);
   },
   staffhire: function (args): void {
-    trackEvent("Staff hire", args);
+    trackEvent("Staff hired", args);
   },
   staffsetcolour: function (args): void {
-    trackEvent("Staff set colour", args);
+    trackEvent("Staff colour set", args);
   },
   staffsetcostume: function (args): void {
-    trackEvent("Staff set costume", args);
+    trackEvent("Staff costume set", args);
   },
   staffsetname: function (args): void {
-    trackEvent("Staff set name", args);
+    trackEvent("Staff name set", args);
   },
   staffsetorders: function (args): void {
-    trackEvent("Staff set orders", args);
+    trackEvent("Staff orders set", args);
   },
   staffsetpatrolarea: function (args): void {
-    trackEvent("Staff set patrol area", args);
+    trackEvent("Staff patrol area set", args);
   },
   surfacesetstyle: function (args): void {
-    trackEvent("Surface set style", args);
+    trackEvent("Surface style set", args);
   },
   tilemodify: function (args): void {
-    trackEvent("Tile modify", args);
+    trackEvent("Tile modified", args);
   },
   trackplace: function (args): void {
-    trackEvent("Track place", args);
+    trackEvent("Track placed", args);
   },
   trackremove: function (args): void {
-    trackEvent("Track remove", args);
+    trackEvent("Track removed", args);
   },
   tracksetbrakespeed: function (args): void {
-    trackEvent("Track set brake speed", args);
+    trackEvent("Track brake speed set", args);
   },
   wallplace: function (args): void {
-    trackEvent("Wall place", args);
+    trackEvent("Wall placed", args);
   },
   wallremove: function (args): void {
-    trackEvent("Wall remove", args);
+    trackEvent("Wall removed", args);
   },
   wallsetcolour: function (args): void {
-    trackEvent("Wall set colour", args);
+    trackEvent("Wall colour set", args);
   },
   waterlower: function (args): void {
-    trackEvent("Water lower", args);
+    trackEvent("Water lowered", args);
   },
   waterraise: function (args): void {
-    trackEvent("Water raise", args);
+    trackEvent("Water raised", args);
   },
   watersetheight: function (args): void {
-    trackEvent("Water set height", args);
+    trackEvent("Water height set", args);
   },
-  mapchanged_scenarioEditor: function (args): void {
-    trackEvent("Map changed scenario editor", args);
+  mapchanged_scenarioEditor: function (_args): void {
+    trackEvent("Map changed in scenario editor");
   },
-  mapchanged_trackDesigner: function (args): void {
-    trackEvent("Map changed track designer", args);
+  mapchanged_trackDesigner: function (_args): void {
+    trackEvent("Map changed in track designer");
   },
-  mapchanged_trackManager: function (args): void {
-    trackEvent("Map changed track manager", args);
+  mapchanged_trackManager: function (_args): void {
+    trackEvent("Map changed in track manager");
   },
-  changemapsize: function (args): void {
-    trackEvent("Change map size", args);
+  changemapsize: function (_args): void {
+    trackEvent("Map size changed");
   },
-  mapchanged_titleScreen: function (args): void {
-    trackEvent("Map changed title screen", args);
+  mapchanged_titleScreen: function (_args): void {
+    trackEvent("Map changed in title screen");
   },
   mapchanged_inGame: function (args): void {
     trackEvent("Map changed in game", args);
@@ -276,31 +277,25 @@ export const callbackMap: CallbackMap = {
     trackEvent("Map saved", args);
   },
   "ride.ratings.calculate": function (args): void {
-    trackEvent("Ride ratings calculate", args);
+    trackEvent("Ride ratings calculated", args);
   },
   stallcreate: function (args): void {
-    trackEvent("Stall create", args);
+    trackEvent("Stall created", args);
   },
   stalldemolish: function (args): void {
-    trackEvent("Stall demolish", args);
+    trackEvent("Stall demolished", args);
   },
   stallsetname: function (args): void {
-    trackEvent("Stall set name", args);
+    trackEvent("Stall name set", args);
   },
   stallsetprice: function (args): void {
-    trackEvent("Stall set price", args);
+    trackEvent("Stall price set", args);
   },
   stallsetsetting: function (args): void {
-    trackEvent("Stall set setting", args);
-  },
-  stallopen: function (args): void {
-    trackEvent("Stall open", args);
-  },
-  stallclose: function (args): void {
-    trackEvent("Stall close", args);
+    trackEvent("Stall setting set", args);
   },
   "vehicle.crash": function (args): void {
-    trackEvent("Vehicle crash", args);
+    trackEvent("Vehicle crashd", args);
   },
   peepsetdown: function (args): void {
     trackEvent("Peep set down", args);
@@ -315,9 +310,9 @@ export const callbackMap: CallbackMap = {
     trackEvent("Network action", args);
   },
   "network.join": function (args): void {
-    trackEvent("Network join", args);
+    trackEvent("Network joined", args);
   },
   "network.leave": function (args): void {
-    trackEvent("Network leave", args);
+    trackEvent("Network left", args);
   },
 };

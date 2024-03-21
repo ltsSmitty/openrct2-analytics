@@ -1,6 +1,6 @@
 import { analytics } from "openrct2-analytics-sdk";
 import * as window from "./ui/window";
-import * as hooks from "./hooks";
+import { hooks } from "openrct2-extended-hooks";
 
 export function startup() {
   analytics.init({ pluginName: "analytics-core" });
@@ -9,6 +9,7 @@ export function startup() {
     window.initialize();
     hooks.subscribe("parkmarketing", cb);
     hooks.subscribe("bannerplace", cb);
+    hooks.subscribe("parksetdate", cb);
     // todo init analytics hooks settings
 
     const menuItemName = "OpenRCT2 Analytics Core";
