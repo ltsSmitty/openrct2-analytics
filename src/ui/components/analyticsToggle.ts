@@ -1,7 +1,7 @@
 import { ActionTypes } from "openrct2-extended-hooks";
 import { WidgetCreator, FlexiblePosition, checkbox, compute } from "openrct2-flexui";
 import { eventTextMap } from "../../eventTextMap";
-import { subscriptions } from "../../store";
+import { subscriptions } from "../../objects/subscriptions";
 
 export const analyticsToggle = (
   action: ActionTypes.ExtendedActionType

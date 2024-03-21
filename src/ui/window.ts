@@ -1,6 +1,8 @@
 import * as flex from "openrct2-flexui";
 import { mainTabContent } from "./tabs/mainTab/mainTab";
 import { debuggerTab } from "./tabs/mainTab/debuggerTab";
+import { customSelectionTab1 } from "./tabs/mainTab/customSelectionTab1";
+import { customSelectionTab2 } from "./tabs/mainTab/customSelectionTab2";
 
 let window: flex.WindowTemplate;
 let isWindowOpen = false;
@@ -8,13 +10,12 @@ let isWindowOpen = false;
 export function initialize() {
   window = flex.tabwindow({
     title: "OpenRCT2 Statistics",
-    width: 250,
+    width: 300,
     height: "auto",
-    position: "center",
     colours: [flex.Colour.LightBlue, flex.Colour.LightBlue, flex.Colour.White],
     onOpen: () => (isWindowOpen = true),
     onClose: () => (isWindowOpen = false),
-    tabs: [mainTabContent(), debuggerTab()],
+    tabs: [mainTabContent(), debuggerTab(), customSelectionTab1(), customSelectionTab2()],
   });
 }
 

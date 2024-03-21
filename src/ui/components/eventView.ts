@@ -1,5 +1,5 @@
 import { compute, groupbox, horizontal, label } from "openrct2-flexui";
-import { eventDebugger } from "../tabs/mainTab/debuggerTab";
+import { eventDebugger } from "../../objects/debugger";
 
 export const eventView = (index: number) => {
   const visibility = compute(eventDebugger.store, (eventArray) => {

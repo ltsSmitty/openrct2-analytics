@@ -16,7 +16,7 @@ export const debuggerTab = () => {
     },
     onClose: () => {
       // todo set it back to the default, not a magic 25
-      analytics.setFlushThreshold(25);
+      analytics.setFlushThreshold(100);
     },
     image: {
       frameBase: 5530,

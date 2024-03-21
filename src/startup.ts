@@ -13,7 +13,7 @@ export function startup() {
     },
   });
 
-  // make sure to init subscriptions
+  // make sure to init subscriptions; no function call needed, but there's no reason to make up an init function
   subscriptions;
 
   if (typeof ui !== "undefined") {

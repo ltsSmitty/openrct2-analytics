@@ -1,6 +1,4 @@
-import { actions } from "openrct2-extended-hooks";
-import { analyticsToggle } from "../../components/analyticsToggle";
-import { tab } from "openrct2-flexui";
+import { dropdown, groupbox, label, tab, vertical } from "openrct2-flexui";
 
 const statIncreaseIcon: ImageAnimation = {
   frameBase: 5367,
@@ -9,12 +7,23 @@ const statIncreaseIcon: ImageAnimation = {
 };
 
 export const mainTabContent = () => {
-  const checkboxes = actions.hookActions.map((action) => {
-    return analyticsToggle(action);
-  });
-
   return tab({
     image: statIncreaseIcon,
-    content: [...checkboxes],
+    content: [
+      groupbox({
+        text: "Analytics",
+        content: [
+          vertical({
+            content: [
+              label({ text: "Start with a tracking preset or customize your own" }),
+              dropdown({
+                items: ["None", "Standard", "Custom"],
+                onChange: (value) => park.postMessage("Analytics preset changed."),
+              }),
+            ],
+          }),
+        ],
+      }),
+    ],
   });
 };
