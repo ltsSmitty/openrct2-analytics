@@ -1,5 +1,6 @@
 import * as flex from "openrct2-flexui";
 import { mainTabContent } from "./tabs/mainTab/mainTab";
+import { debuggerTab } from "./tabs/mainTab/debugger";
 
 let window: flex.WindowTemplate;
 let isWindowOpen = false;
@@ -13,7 +14,7 @@ export function initialize() {
     colours: [flex.Colour.LightBlue, flex.Colour.LightBlue, flex.Colour.White],
     onOpen: () => (isWindowOpen = true),
     onClose: () => (isWindowOpen = false),
-    tabs: [mainTabContent()],
+    tabs: [mainTabContent(), debuggerTab()],
   });
 }
 

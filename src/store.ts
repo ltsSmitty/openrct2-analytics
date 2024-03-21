@@ -1,45 +1,83 @@
-import { actions, ActionTypes } from "openrct2-extended-hooks";
+import { actions, ActionTypes, hooks } from "openrct2-extended-hooks";
 import { store, WritableStore } from "openrct2-flexui";
 import { config } from "./config";
+import { callbackMap } from "./callbacks";
 
-type SubscriptionStore = Record<ActionTypes.ExtendedActionType, WritableStore<boolean>>;
-type FlatSubscriptionStore = Record<ActionTypes.ExtendedActionType, boolean>;
-
-export const createSubscriptionStore = (flatStore?: FlatSubscriptionStore) => {
-  // @ts-ignore
-  const subscriptions: SubscriptionStore = {};
-  actions.hookActions.forEach((action) => {
-    subscriptions[action] = store<boolean>(false);
-  });
-
-  if (flatStore) {
-    Object.keys(flatStore).forEach((k) => {
-      const key = k as keyof FlatSubscriptionStore;
-      subscriptions[key].set(flatStore[key]);
-    });
-  }
-};
-
-export const flattenSubscriptionStore = (
-  subscriptions: SubscriptionStore
-): FlatSubscriptionStore => {
-  // @ts-ignore
-  const flattenedSubscriptions: Record<ActionTypes.ExtendedActionType, boolean> = {};
-  Object.keys(subscriptions).forEach((k) => {
-    const key = k as keyof SubscriptionStore;
-    flattenedSubscriptions[key] = subscriptions[key].get();
-  });
-  return flattenedSubscriptions;
-};
+type TSubscriptionStore = Record<ActionTypes.ExtendedActionType, WritableStore<boolean>>;
+type TFlatSubscriptionStore = Record<ActionTypes.ExtendedActionType, boolean>;
+type IDisposableSubscriptionMap = Record<ActionTypes.ExtendedActionType, IDisposable>;
 
 const parkStatKey = `${config.pluginName}.subscriptions.values`;
 
-export const loadSubscriptionValues = () => {
-  const flatValues = context.sharedStorage.get(parkStatKey, {}) as FlatSubscriptionStore;
-  return createSubscriptionStore(flatValues);
-};
+class SubscriptionStore {
+  // @ts-ignore
+  subscriptions: TSubscriptionStore = {};
+  // @ts-ignore
+  private disposableSubscriptions: IDisposableSubscriptionMap = {};
 
-export const saveSubscriptionValues = (subscriptions: SubscriptionStore) => {
-  const flatValues = flattenSubscriptionStore(subscriptions);
-  context.sharedStorage.set(parkStatKey, flatValues);
-};
+  constructor() {
+    this.iniatializeSubscriptionStore();
+  }
+
+  iniatializeSubscriptionStore() {
+    this.load();
+    hooks.subscribe("loadorquit", () => {
+      this.save();
+    });
+  }
+
+  createSubscriptionStore(flatStore?: TFlatSubscriptionStore) {
+    // initialize subscriptions with falsey values
+    actions.hookActions.forEach((action) => {
+      this.subscriptions[action] = store<boolean>(false);
+    });
+
+    // if flatStore is provided, set the subscriptions to the values in the flatStore
+    if (flatStore) {
+      Object.keys(flatStore).forEach((k) => {
+        const key = k as keyof TFlatSubscriptionStore;
+        this.subscriptions[key].set(flatStore[key]);
+      });
+    }
+
+    // set the callbacks & IDisposables for each key subscriptions
+    Object.keys(this.subscriptions).forEach((k) => {
+      const key = k as keyof TFlatSubscriptionStore;
+      this.subscriptions[key].subscribe((v) => {
+        console.log(`Set subscription setting for ${key} to ${v}`);
+        if (v) {
+          this.disposableSubscriptions[key] = hooks.subscribe(key, (data) => {
+            callbackMap[key](data as any);
+          });
+        } else {
+          this.disposableSubscriptions[key].dispose();
+        }
+        this.save();
+      });
+    });
+
+    return this.subscriptions;
+  }
+
+  flatten(subscriptions: TSubscriptionStore): TFlatSubscriptionStore {
+    // @ts-ignore
+    const flattenedSubscriptions: Record<ActionTypes.ExtendedActionType, boolean> = {};
+    Object.keys(subscriptions).forEach((k) => {
+      const key = k as keyof TSubscriptionStore;
+      flattenedSubscriptions[key] = subscriptions[key].get();
+    });
+    return flattenedSubscriptions;
+  }
+
+  load() {
+    const flatValues = context.sharedStorage.get(parkStatKey, {}) as TFlatSubscriptionStore;
+    flatValues ? this.createSubscriptionStore(flatValues) : this.createSubscriptionStore();
+  }
+
+  save() {
+    const flatValues = this.flatten(this.subscriptions);
+    return context.sharedStorage.set(parkStatKey, flatValues);
+  }
+}
+
+export const subscriptions = new SubscriptionStore().subscriptions;
