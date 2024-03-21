@@ -1,6 +1,6 @@
 import * as flex from "openrct2-flexui";
 import { mainTabContent } from "./tabs/mainTab/mainTab";
-import { debuggerTab } from "./tabs/mainTab/debugger";
+import { debuggerTab } from "./tabs/mainTab/debuggerTab";
 
 let window: flex.WindowTemplate;
 let isWindowOpen = false;

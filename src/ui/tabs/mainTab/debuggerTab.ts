@@ -1,18 +1,6 @@
-import { TrackEventType, analytics } from "openrct2-analytics-sdk";
-import { ArrayStore, FlexiblePosition, WidgetCreator, arrayStore, tab } from "openrct2-flexui";
+import { analytics } from "openrct2-analytics-sdk";
+import { FlexiblePosition, WidgetCreator, tab } from "openrct2-flexui";
 import { eventView } from "../../components/eventView";
-
-class Debugger {
-  store: ArrayStore<TrackEventType | undefined> = arrayStore<TrackEventType | undefined>([]);
-  push(data: any) {
-    this.store.splice(0, 0, data);
-    if (this.store.get().length > 10) {
-      this.store.pop();
-    }
-  }
-}
-
-export const eventDebugger = new Debugger();
 
 export const debuggerTab = () => {
   const eventViews: WidgetCreator<FlexiblePosition>[] = [];

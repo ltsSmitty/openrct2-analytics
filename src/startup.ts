@@ -1,8 +1,8 @@
 import { analytics } from "openrct2-analytics-sdk";
 import * as window from "./ui/window";
 import { hooks } from "openrct2-extended-hooks";
-import { eventDebugger } from "./ui/tabs/mainTab/debugger";
-import { subscriptions } from "./store";
+import { eventDebugger } from "./objects/debugger";
+import { subscriptions } from "./objects/subscriptions";
 
 export function startup() {
   analytics.init({

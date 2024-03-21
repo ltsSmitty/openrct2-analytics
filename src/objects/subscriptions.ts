@@ -1,7 +1,7 @@
 import { actions, ActionTypes, hooks } from "openrct2-extended-hooks";
 import { store, WritableStore } from "openrct2-flexui";
-import { config } from "./config";
-import { callbackMap } from "./callbacks";
+import { config } from "../config";
+import { callbackMap } from "../callbacks";
 
 type TSubscriptionStore = Record<ActionTypes.ExtendedActionType, WritableStore<boolean>>;
 type TFlatSubscriptionStore = Record<ActionTypes.ExtendedActionType, boolean>;
