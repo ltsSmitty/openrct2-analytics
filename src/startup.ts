@@ -7,9 +7,7 @@ export function startup() {
 
   if (typeof ui !== "undefined") {
     window.initialize();
-    hooks.subscribe("parkmarketing", cb);
-    hooks.subscribe("bannerplace", cb);
-    hooks.subscribe("parksetdate", cb);
+    hooks.ride("ridesetname", cb);
     // todo init analytics hooks settings
 
     const menuItemName = "OpenRCT2 Analytics Core";
