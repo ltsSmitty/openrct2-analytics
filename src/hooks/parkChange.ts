@@ -43,6 +43,10 @@ export const onParkChange = <T extends ParkChangeAction>(
     case "loadorquit":
       return onLoadOrQuit(callback);
     default:
-      throw new Error(`No action found for ${parkChangeAction}`);
+      return context.subscribe("action.execute", (data: GameActionEventArgs<object>) => {
+        if (data.action === parkChangeAction && (data.args as any).flags < 0) {
+          callback(data);
+        }
+      });
   }
 };

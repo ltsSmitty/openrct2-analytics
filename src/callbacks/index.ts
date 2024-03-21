@@ -12,103 +12,103 @@ const trackEvent = (title: string, data: GameActionEventArgs) => {
 
 export const callbackMap: CallbackMap = {
   balloonpress: (args) => {
-    trackEvent("Balloon press", args);
+    trackEvent("Balloon pressed", args);
   },
   bannerplace: function (args): void {
-    trackEvent("Banner place", args);
+    trackEvent("Banner placed", args);
   },
   bannerremove: function (args): void {
-    trackEvent("Banner remove", args);
+    trackEvent("Banner removed", args);
   },
   bannersetcolour: function (args): void {
-    trackEvent("Banner set colour", args);
+    trackEvent("Banner colour set", args);
   },
   bannersetname: function (args): void {
-    trackEvent("Banner set name", args);
+    trackEvent("Banner name set", args);
   },
   bannersetstyle: function (args): void {
-    trackEvent("Banner set style", args);
+    trackEvent("Banner style set", args);
   },
   cheatset: function (args): void {
     trackEvent("Cheat set", args);
   },
   clearscenery: function (args): void {
-    trackEvent("Clear scenery", args);
+    trackEvent("Scenery cleared", args);
   },
   climateset: function (args): void {
     trackEvent("Climate set", args);
   },
   footpathadditionplace: function (args): void {
-    trackEvent("Footpath addition place", args);
+    trackEvent("Footpath addition placed", args);
   },
   footpathadditionremove: function (args): void {
-    trackEvent("Footpath addition remove", args);
+    trackEvent("Footpath addition removed", args);
   },
   footpathplace: function (args): void {
-    trackEvent("Footpath place", args);
+    trackEvent("Footpath placde", args);
   },
   footpathlayoutplace: function (args): void {
-    trackEvent("Footpath layout place", args);
+    trackEvent("Footpath layout placed", args);
   },
   footpathremove: function (args): void {
     trackEvent("Footpath removed", args);
   },
   gamesetspeed: function (args): void {
-    trackEvent("Game set speed", args);
+    trackEvent("Game speed set", args);
   },
   guestsetflags: function (args): void {
-    trackEvent("Guest set flags", args);
+    trackEvent("Guest flags set", args);
   },
   guestsetname: function (args): void {
-    trackEvent("Guest set name", args);
+    trackEvent("Guest name set", args);
   },
   landbuyrights: function (args): void {
-    trackEvent("Land buy rights", args);
+    trackEvent("Land rights purchased", args);
   },
   landlower: function (args): void {
-    trackEvent("Land lower", args);
+    trackEvent("Land lowered", args);
   },
   landraise: function (args): void {
-    trackEvent("Land raise", args);
+    trackEvent("Land raised", args);
   },
   landsetheight: function (args): void {
-    trackEvent("Land set height", args);
+    trackEvent("Land height set", args);
   },
   landsetrights: function (args): void {
-    trackEvent("Land set rights", args);
+    trackEvent("Land rights set", args);
   },
   landsmooth: function (args): void {
-    trackEvent("Land smooth", args);
+    trackEvent("Land smoothed", args);
   },
   largesceneryplace: function (args): void {
-    trackEvent("Large scenery place", args);
+    trackEvent("Large scenery placed", args);
   },
   largesceneryremove: function (args): void {
-    trackEvent("Large scenery remove", args);
+    trackEvent("Large scenery removed", args);
   },
   largescenerysetcolour: function (args): void {
-    trackEvent("Large scenery set colour", args);
+    trackEvent("Large scenery colour set", args);
   },
   loadorquit: function (args): void {
     trackEvent("Load or quit", args);
   },
   mapchangesize: function (args): void {
-    trackEvent("Map change size", args);
+    trackEvent("Map size changed", args);
   },
   mazeplacetrack: function (args): void {
-    trackEvent("Maze place track", args);
+    trackEvent("Maze track placed", args);
   },
   mazesettrack: function (args): void {
-    trackEvent("Maze set track", args);
+    trackEvent("Maze track set", args);
   },
   networkmodifygroup: function (args): void {
-    trackEvent("Network modify group", args);
+    trackEvent("Network group modified", args);
   },
   parkentranceplace: function (args): void {
-    trackEvent("Park entrance place", args);
+    trackEvent("Park entrance placed", args);
   },
   parkentranceremove: function (args): void {
-    trackEvent("Park entrance remove", args);
+    trackEvent("Park entrance removed", args);
   },
   parkmarketing: function (args): void {
     trackEvent("Park marketing", args);
