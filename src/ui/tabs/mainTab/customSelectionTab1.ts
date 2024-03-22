@@ -1,6 +1,4 @@
-import { actions } from "openrct2-extended-hooks";
 import { tab, groupbox, horizontal, vertical } from "openrct2-flexui";
-import { analyticsToggle } from "../../components/analyticsToggle";
 import { checkboxes } from "../../components/checkboxes";
 
 const gearIcon: ImageAnimation = {
@@ -11,7 +9,7 @@ const gearIcon: ImageAnimation = {
 
 export const customSelectionTab1 = () => {
   return tab({
-    width: 360,
+    width: 600,
     image: gearIcon,
     content: [
       groupbox({
@@ -34,6 +32,18 @@ export const customSelectionTab1 = () => {
                     content: [
                       vertical({
                         content: checkboxes.park,
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              vertical({
+                content: [
+                  groupbox({
+                    text: "Scenery",
+                    content: [
+                      vertical({
+                        content: checkboxes.scenery,
                       }),
                     ],
                   }),
