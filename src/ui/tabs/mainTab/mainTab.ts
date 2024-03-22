@@ -14,8 +14,7 @@ const subscriptionKeys = Object.keys(subs.subscriptions).map((k) => {
   return key;
 });
 
-const stores = subscriptionKeys.map((s) => subs.subscriptions[s]);
-
+const stores = subscriptionKeys.map((key) => subs.subscriptions[key]);
 // compute actually supports as many stores as you want, but the typescript types are limited to 5
 // so this isn't a relevant error, especially since I don't need to access the values of the stores
 // @ts-ignore
@@ -42,7 +41,15 @@ export const mainTabContent = () => {
               dropdown({
                 items: ["None", "Standard", "Custom"],
                 selectedIndex: compute(dropDownIndex, (index) => index),
-                onChange: (value) => park.postMessage("Analytics preset changed."),
+                onChange: (index) => {
+                  if (index === 0) {
+                    subs.resetValuesToZero();
+                  } else if (index === 1) {
+                    subs.set(standardSelection);
+                  } else {
+                    // do the custom thing
+                  }
+                },
               }),
             ],
           }),
