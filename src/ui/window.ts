@@ -3,6 +3,7 @@ import { mainTabContent } from "./tabs/mainTab";
 import { debuggerTab } from "./tabs/debuggerTab";
 import { customSelectionTab1 } from "./tabs/customSelectionTab1";
 import { customSelectionTab2 } from "./tabs/customSelectionTab2";
+import { analysisTab } from "./tabs/analysisTab";
 
 let window: flex.WindowTemplate;
 let isWindowOpen = false;
@@ -15,7 +16,13 @@ export function initialize() {
     colours: [flex.Colour.LightBlue, flex.Colour.LightBlue, flex.Colour.White],
     onOpen: () => (isWindowOpen = true),
     onClose: () => (isWindowOpen = false),
-    tabs: [mainTabContent(), debuggerTab(), customSelectionTab1(), customSelectionTab2()],
+    tabs: [
+      mainTabContent(),
+      analysisTab(),
+      debuggerTab(),
+      customSelectionTab1(),
+      customSelectionTab2(),
+    ],
   });
 }
 
