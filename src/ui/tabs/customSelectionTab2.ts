@@ -1,5 +1,5 @@
 import { tab, groupbox, horizontal, vertical } from "openrct2-flexui";
-import { checkboxes } from "../../components/checkboxes";
+import { checkboxes } from "../components/checkboxes";
 
 const gearIcon: ImageAnimation = {
   frameBase: 5205,

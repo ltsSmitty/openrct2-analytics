@@ -1,7 +1,7 @@
 import { dropdown, groupbox, label, tab, vertical, compute, WritableStore } from "openrct2-flexui";
-import { TSubscriptionStore, subs } from "../../../objects/subscriptions";
-import { standardSelection } from "../../../standardTrackingSelection";
-import { areAllValsFalse, areObjectValuesEqual } from "../../../utilities/compareObjectValues";
+import { TSubscriptionStore, subs } from "../../objects/subscriptions";
+import { standardSelection } from "../../standardTrackingSelection";
+import { areAllValsFalse, areObjectValuesEqual } from "../../utilities/compareObjectValues";
 
 const statIncreaseIcon: ImageAnimation = {
   frameBase: 5367,

@@ -9,11 +9,11 @@ import {
   tab,
   vertical,
 } from "openrct2-flexui";
-import { eventView } from "../../components/eventView";
-import { eventDebugger } from "../../../objects/debugger";
+import { eventView } from "../components/eventView";
+import { eventDebugger } from "../../objects/debugger";
 
 const visibility = compute(eventDebugger.store, (eventArray) => {
-  return eventArray.length > 0 ? "visible" : "hidden";
+  return eventArray.length === 0 ? "visible" : "hidden";
 });
 
 export const debuggerTab = () => {
@@ -59,7 +59,10 @@ export const debuggerTab = () => {
     content: [
       groupbox({
         text: "Event Debugger",
-        content: [noRecentEvents, ...eventViews],
+        content: [
+          // noRecentEvents,
+          ...eventViews,
+        ],
       }),
     ],
   });

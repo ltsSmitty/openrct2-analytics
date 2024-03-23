@@ -3,11 +3,11 @@ import { store, WritableStore } from "openrct2-flexui";
 import { config } from "../config";
 import { callbackMap } from "../callbacks";
 
-type TSubscriptionStore = Record<ActionTypes.ExtendedActionType, WritableStore<boolean>>;
-type TFlatSubscriptionStore = Record<ActionTypes.ExtendedActionType, boolean>;
+export type TSubscriptionStore = Record<ActionTypes.ExtendedActionType, WritableStore<boolean>>;
+export type TFlatSubscriptionStore = Record<ActionTypes.ExtendedActionType, boolean>;
 type IDisposableSubscriptionMap = Record<ActionTypes.ExtendedActionType, IDisposable>;
 
-const parkStatKey = `${config.pluginName}.subscriptions.values`;
+const parkStatKey = `${config.pluginName}.subscriptions.values` as const;
 
 class SubscriptionStore {
   // @ts-ignore
@@ -16,14 +16,41 @@ class SubscriptionStore {
   private disposableSubscriptions: IDisposableSubscriptionMap = {};
 
   constructor() {
-    this.iniatializeSubscriptionStore();
-  }
-
-  iniatializeSubscriptionStore() {
     this.load();
     hooks.subscribe("loadorquit", () => {
       this.save();
     });
+  }
+
+  load() {
+    const flatValuesJSONString = context.sharedStorage.get(parkStatKey, "");
+    const flatValues = JSON.parse(flatValuesJSONString) as TFlatSubscriptionStore;
+    console.log("Loaded subscription values", flatValues);
+    flatValues ? this.createSubscriptionStore(flatValues) : this.createSubscriptionStore();
+
+    // // @ts-ignore
+    // const savedValues: TFlatSubscriptionStore = {};
+
+    // actions.hookActions.forEach((a) => {
+    //   const action = a as ActionTypes.ExtendedActionType;
+    //   savedValues[action] = context.sharedStorage.get(`${parkStatKey}.${action}`, false);
+    // });
+    // this.createSubscriptionStore(savedValues);
+  }
+
+  save() {
+    console.log("Saving subscription values");
+    park.postMessage("Saving subscription values");
+    const flatValues = this.flatten(this.subscriptions);
+    context.sharedStorage.set(parkStatKey, JSON.stringify(flatValues));
+    // Object.keys(flatValues).forEach((k) => {
+    //   const key = k as keyof TFlatSubscriptionStore;
+    //   this.saveKeyValue(key, flatValues[key]);
+    // });
+  }
+
+  saveKeyValue(key: keyof TFlatSubscriptionStore, value: boolean) {
+    // return context.sharedStorage.set(`${parkStatKey}.${key}`, value);
   }
 
   createSubscriptionStore(flatStore?: TFlatSubscriptionStore) {
@@ -40,12 +67,11 @@ class SubscriptionStore {
         console.log(`Set subscription setting for ${key} to ${v}`);
         if (v) {
           this.disposableSubscriptions[key] = hooks.subscribe(key, (data) => {
-            callbackMap[key](data as any);
+            callbackMap[key](data ?? ({} as any));
           });
         } else {
           this.disposableSubscriptions[key].dispose();
         }
-        this.save();
       });
     });
 
@@ -57,7 +83,7 @@ class SubscriptionStore {
         this.subscriptions[key].set(flatStore[key]);
       });
     }
-
+    this.save();
     return this.subscriptions;
   }
 
@@ -71,15 +97,33 @@ class SubscriptionStore {
     return flattenedSubscriptions;
   }
 
-  load() {
-    const flatValues = context.sharedStorage.get(parkStatKey, {}) as TFlatSubscriptionStore;
-    flatValues ? this.createSubscriptionStore(flatValues) : this.createSubscriptionStore();
+  get flat() {
+    return this.flatten(this.subscriptions);
   }
 
-  save() {
-    const flatValues = this.flatten(this.subscriptions);
-    return context.sharedStorage.set(parkStatKey, flatValues);
+  resetValuesToZero() {
+    Object.keys(this.subscriptions).forEach((k) => {
+      const key = k as keyof TSubscriptionStore;
+      this.subscriptions[key].set(false);
+    });
+  }
+
+  set(values: TFlatSubscriptionStore) {
+    Object.keys(values).forEach((k) => {
+      const key = k as keyof TFlatSubscriptionStore;
+      this.subscriptions[key].set(values[key]);
+    });
   }
 }
 
-export const subscriptions = new SubscriptionStore().subscriptions;
+export const subs = new SubscriptionStore();
+
+// load() {
+//   const flatValues = context.sharedStorage.get(parkStatKey, {}) as TFlatSubscriptionStore;
+//   flatValues ? this.createSubscriptionStore(flatValues) : this.createSubscriptionStore();
+// }
+
+// save() {
+//   const flatValues = this.flatten(this.subscriptions);
+//   return context.sharedStorage.set(parkStatKey, flatValues);
+// }

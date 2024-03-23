@@ -1,8 +1,8 @@
 import * as flex from "openrct2-flexui";
-import { mainTabContent } from "./tabs/mainTab/mainTab";
-import { debuggerTab } from "./tabs/mainTab/debuggerTab";
-import { customSelectionTab1 } from "./tabs/mainTab/customSelectionTab1";
-import { customSelectionTab2 } from "./tabs/mainTab/customSelectionTab2";
+import { mainTabContent } from "./tabs/mainTab";
+import { debuggerTab } from "./tabs/debuggerTab";
+import { customSelectionTab1 } from "./tabs/customSelectionTab1";
+import { customSelectionTab2 } from "./tabs/customSelectionTab2";
 
 let window: flex.WindowTemplate;
 let isWindowOpen = false;
