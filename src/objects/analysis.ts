@@ -11,8 +11,15 @@ export class Analysis {
 
   loadFromStorage() {
     console.log(`started loading at ${new Date().toISOString()}`);
-    this.eventData = context.sharedStorage.get(dataKey, []) as TrackWithArgs[];
+    const loadedData = context.sharedStorage.get(dataKey, []);
     console.log(`finished loading at ${new Date().toISOString()}`);
+    const eventData: Record<string, TrackWithArgs[]> = {};
+    Object.keys(loadedData).forEach((key) => {
+      eventData[key] = loadedData[key as any];
+    });
+    Object.keys(eventData).forEach((key) => {
+      console.log(`key: ${key}`, `${eventData[key].length} events`);
+    });
   }
 }
 
