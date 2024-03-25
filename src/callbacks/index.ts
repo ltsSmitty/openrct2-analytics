@@ -5,11 +5,13 @@ import { EventName } from "../eventNames";
 type CallbackMap = Record<ActionTypes.ExtendedActionType, (args: GameActionEventArgs) => void>;
 
 const trackEvent = (title: EventName, data?: GameActionEventArgs) => {
+  console.log("Tracking event: ", title, data);
   analytics.track({
     name: title,
     properties: data,
   });
 };
+
 export const callbackMap: CallbackMap = {
   balloonpress: (args) => {
     trackEvent("Balloon pressed", args);
@@ -316,114 +318,3 @@ export const callbackMap: CallbackMap = {
     trackEvent("Network left", args);
   },
 };
-
-// const hookToEventNameMap: Readonly<Record<ActionTypes.ExtendedActionType, string>> = {
-//   balloonpress: "Balloon pressed",
-//   bannerplace: "Banner placed",
-//   bannerremove: "Banner removed",
-//   bannersetcolour: "Banner colour set",
-//   bannersetname: "Banner name set",
-//   bannersetstyle: "Banner style set",
-//   cheatset: "Cheat set",
-//   clearscenery: "Scenery cleared",
-//   climateset: "Climate set",
-//   footpathadditionplace: "Footpath addition placed",
-//   footpathadditionremove: "Footpath addition removed",
-//   footpathplace: "Footpath placed",
-//   footpathlayoutplace: "Footpath layout placed",
-//   footpathremove: "Footpath removed",
-//   gamesetspeed: "Game speed set",
-//   guestsetflags: "Guest flags set",
-//   guestsetname: "Guest name set",
-//   landbuyrights: "Land rights purchased",
-//   landlower: "Land lowered",
-//   landraise: "Land raised",
-//   landsetheight: "Land height set",
-//   landsetrights: "Land rights set",
-//   landsmooth: "Land smoothed",
-//   largesceneryplace: "Large scenery placed",
-//   largesceneryremove: "Large scenery removed",
-//   largescenerysetcolour: "Large scenery colour set",
-//   loadorquit: "Load or quit",
-//   mapchangesize: "Map size changed",
-//   mazeplacetrack: "Maze track placed",
-//   mazesettrack: "Maze track set",
-//   networkmodifygroup: "Network group modified",
-//   parkentranceplace: "Park entrance placed",
-//   parkentranceremove: "Park entrance removed",
-//   parkmarketing: "Park marketing purchased",
-//   parksetdate: "Park date set",
-//   parksetentrancefee: "Park entrance feeset",
-//   parksetloan: "Park loan set",
-//   parksetname: "Park name set",
-//   parksetparameter: "Park parameter set",
-//   parksetresearchfunding: "Park research funding set",
-//   pausetoggle: "Pause toggle",
-//   peeppickup: "Peep picked up",
-//   peepspawnplace: "Peep spawn placed",
-//   playerkick: "Player kicked",
-//   playersetgroup: "Player group set",
-//   ridecreate: "Ride created",
-//   ridedemolish: "Ride demolished",
-//   rideentranceexitplace: "Ride entrance/exit placed",
-//   rideentranceexitremove: "Ride entrance/exit removed",
-//   ridefreezerating: "Ride rating frozen",
-//   ridesetappearance: "Ride appearance set",
-//   ridesetcolourscheme: "Ride colour scheme set",
-//   ridesetname: "Ride name set",
-//   ridesetprice: "Ride price set",
-//   ridesetsetting: "Ride setting set",
-//   ridesetstatus: "Ride status set",
-//   ridesetvehicle: "Ride vehicle set",
-//   scenariosetsetting: "Scenario setting set",
-//   signsetname: "Sign name set",
-//   signsetstyle: "Sign style set",
-//   smallsceneryplace: "Small scenery placed",
-//   smallsceneryremove: "Small scenery removed",
-//   smallscenerysetcolour: "Small scenery colour set",
-//   stafffire: "Staff fired",
-//   staffhire: "Staff hired",
-//   staffsetcolour: "Staff colour set",
-//   staffsetcostume: "Staff costume set",
-//   staffsetname: "Staff name set",
-//   staffsetorders: "Staff orders set",
-//   staffsetpatrolarea: "Staff patrol area set",
-//   surfacesetstyle: "Surface style set",
-//   tilemodify: "Tile modified",
-//   trackplace: "Track placed",
-//   trackremove: "Track removed",
-//   tracksetbrakespeed: "Track brake speed set",
-//   wallplace: "Wall placed",
-//   wallremove: "Wall removed",
-//   wallsetcolour: "Wall colour set",
-//   waterlower: "Water lowered",
-//   waterraise: "Water raised",
-//   watersetheight: "Water height set",
-//   mapchanged_scenarioEditor: "Map changed in scenario editor",
-//   mapchanged_trackDesigner: "Map changed in track designer",
-//   mapchanged_trackManager: "Map changed in track manager",
-//   changemapsize: "Map size changed",
-//   mapchanged_titleScreen: "Map changed in title screen",
-//   mapchanged_inGame: "Map changed in game",
-//   mapsaved: "Map saved",
-//   "ride.ratings.calculate": "Ride ratings calculated",
-//   stallcreate: "Stall created",
-//   stalldemolish: "Stall demolished",
-//   stallsetname: "Stall name set",
-//   stallsetprice: "Stall price set",
-//   stallsetsetting: "Stall setting set",
-//   "vehicle.crash": "Vehicle crashed",
-//   peepsetdown: "Peep set down",
-//   "guest.generated": "Guest generated",
-//   "network.chat": "Network chat",
-//   "network.action": "Network action",
-//   "network.join": "Network joined",
-//   "network.leave": "Network left",
-// } as const;
-
-// type Event = keyof typeof hookToEventNameMap;
-// type EventName = (typeof hookToEventNameMap)[Event];
-
-// const a = eventTextMap.balloonpress;
-
-// eventTextMap.balloonpress = "hi";

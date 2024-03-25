@@ -14,8 +14,8 @@ export const analysisTab = () => {
     width: 400,
     height: 300,
     image: {
-      frameBase: 5530,
-      frameCount: 7,
+      frameBase: 5245,
+      frameCount: 8,
       frameDuration: 8,
     },
     content: [
@@ -29,7 +29,13 @@ export const analysisTab = () => {
                 onClick: () => {
                   analytics.flush();
                   analysis.loadFromStorage();
-                  eventCount.set(analysis.eventData.length);
+                  const rides = analysis.query("byEventName")("Ride created");
+                  const ridesByDay = analysis.query("byDate")("23/2/2024");
+                  console.log(`rides by day`, ridesByDay);
+                  const ridesByRide = analysis.query("byRide")("1");
+                  console.log(`rides by ride`, ridesByRide);
+
+                  eventCount.set(analysis.eventData["Ride created"]?.length ?? 0);
                 },
               }),
               label({

@@ -6,7 +6,7 @@ export function startup() {
   analytics.init({
     pluginName: "analytics-core",
     eventCallback: (data) => {
-      console.log(`Tracking event: `, data.properties.name);
+      console.log(`Tracking event: `, data.properties);
       eventDebugger.push(data);
     },
   });

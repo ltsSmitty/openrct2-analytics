@@ -27,15 +27,6 @@ class SubscriptionStore {
     const flatValues = JSON.parse(flatValuesJSONString) as TFlatSubscriptionStore;
     console.log("Loaded subscription values", flatValues);
     flatValues ? this.createSubscriptionStore(flatValues) : this.createSubscriptionStore();
-
-    // // @ts-ignore
-    // const savedValues: TFlatSubscriptionStore = {};
-
-    // actions.hookActions.forEach((a) => {
-    //   const action = a as ActionTypes.ExtendedActionType;
-    //   savedValues[action] = context.sharedStorage.get(`${parkStatKey}.${action}`, false);
-    // });
-    // this.createSubscriptionStore(savedValues);
   }
 
   save() {
@@ -43,14 +34,6 @@ class SubscriptionStore {
     park.postMessage("Saving subscription values");
     const flatValues = this.flatten(this.subscriptions);
     context.sharedStorage.set(parkStatKey, JSON.stringify(flatValues));
-    // Object.keys(flatValues).forEach((k) => {
-    //   const key = k as keyof TFlatSubscriptionStore;
-    //   this.saveKeyValue(key, flatValues[key]);
-    // });
-  }
-
-  saveKeyValue(key: keyof TFlatSubscriptionStore, value: boolean) {
-    // return context.sharedStorage.set(`${parkStatKey}.${key}`, value);
   }
 
   createSubscriptionStore(flatStore?: TFlatSubscriptionStore) {
@@ -117,13 +100,3 @@ class SubscriptionStore {
 }
 
 export const subs = new SubscriptionStore();
-
-// load() {
-//   const flatValues = context.sharedStorage.get(parkStatKey, {}) as TFlatSubscriptionStore;
-//   flatValues ? this.createSubscriptionStore(flatValues) : this.createSubscriptionStore();
-// }
-
-// save() {
-//   const flatValues = this.flatten(this.subscriptions);
-//   return context.sharedStorage.set(parkStatKey, flatValues);
-// }
