@@ -30,8 +30,8 @@ export const analysisTab = () => {
                   analytics.flush();
                   analysis.loadFromStorage();
                   const rides = analysis.query("byEventName")("Ride created");
-                  const ridesByDay = analysis.query("byDate")("23/2/2024");
-                  console.log(`rides by day`, ridesByDay);
+                  // const ridesByDay = analysis.query("byDate")("23/2/2024");
+                  // console.log(`rides by day`, ridesByDay);
                   const ridesByRide = analysis.query("byRide")("1");
                   console.log(`rides by ride`, ridesByRide);
 

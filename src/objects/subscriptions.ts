@@ -50,7 +50,11 @@ class SubscriptionStore {
         console.log(`Set subscription setting for ${key} to ${v}`);
         if (v) {
           this.disposableSubscriptions[key] = hooks.subscribe(key, (data) => {
-            callbackMap[key](data ?? ({} as any));
+            const eventAction = data?.action as typeof key;
+            if (eventAction !== key) {
+              console.log(`Action/key mismatch: ${eventAction} !== ${key}`);
+            }
+            callbackMap[eventAction](data ?? ({} as any));
           });
         } else {
           this.disposableSubscriptions[key].dispose();
