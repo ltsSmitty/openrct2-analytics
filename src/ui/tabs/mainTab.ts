@@ -25,8 +25,9 @@ const subscriptionKeys = Object.keys(subs.subscriptions).map((k) => {
 });
 
 const stores = subscriptionKeys.map((key) => subs.subscriptions[key]);
-// compute actually supports as many stores as you want, but the typescript types are limited to 5
-// so this isn't a relevant error, especially since I don't need to access the values of the stores
+
+// Compute what to show for the preset dropdown by subscribing to all the stores in the subscriptions object
+// compute() actually supports as many stores as you want, but the typing is limiting
 // @ts-ignore
 const dropDownIndex = compute(...stores, (_firstStoreValue) => {
   const values = subs.flat;
