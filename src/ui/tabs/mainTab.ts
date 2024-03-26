@@ -1,7 +1,17 @@
-import { dropdown, groupbox, label, tab, vertical, compute, WritableStore } from "openrct2-flexui";
+import {
+  dropdown,
+  groupbox,
+  label,
+  tab,
+  vertical,
+  compute,
+  WritableStore,
+  button,
+} from "openrct2-flexui";
 import { TSubscriptionStore, subs } from "../../objects/subscriptions";
 import { standardSelection } from "../../standardTrackingSelection";
 import { areAllValsFalse, areObjectValuesEqual } from "../../utilities/compareObjectValues";
+import { config } from "../../config";
 
 const statIncreaseIcon: ImageAnimation = {
   frameBase: 5367,
@@ -49,6 +59,14 @@ export const mainTabContent = () => {
                   } else {
                     // do the custom thing
                   }
+                },
+              }),
+              button({
+                height: 20,
+                width: 100,
+                text: "Reset",
+                onClick: () => {
+                  context.sharedStorage.set(config.dataKey, {});
                 },
               }),
             ],

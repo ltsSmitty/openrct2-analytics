@@ -2,14 +2,13 @@ import { QueryObj } from "./../queries/index";
 import { TrackEventType } from "openrct2-analytics-sdk";
 import { EventName } from "../eventNames";
 import * as queries from "../queries";
+import { config } from "../config";
 
 type TrackWithArgs = TrackEventType & {
   properties: { properties: GameActionEventArgs<object> | undefined };
 };
 
 export type LoadedEventData = Partial<Record<EventName, TrackWithArgs[]>>;
-
-const dataKey = "analytics.data.storage";
 
 export class Analysis {
   eventData: LoadedEventData = {};
@@ -18,7 +17,7 @@ export class Analysis {
   query = this.queryObj.query;
 
   loadFromStorage() {
-    const loadedData = context.sharedStorage.get(dataKey, []) as Partial<
+    const loadedData = context.sharedStorage.get(config.dataKey, []) as Partial<
       Record<EventName, TrackWithArgs[]>
     >;
     Object.keys(loadedData).forEach((k) => {
