@@ -10,9 +10,7 @@
  */
 
 import { EventName } from "../eventNames";
-import { eventTextMap } from "../eventTextMap";
 import { LoadedEventData } from "../objects/analysis";
-import * as hooks from "openrct2-extended-hooks";
 
 export type QueryParam =
   | "byEventName"

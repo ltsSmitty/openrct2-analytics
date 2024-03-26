@@ -1,7 +1,6 @@
 import { QueryObj } from "./../queries/index";
 import { TrackEventType } from "openrct2-analytics-sdk";
 import { EventName } from "../eventNames";
-import * as queries from "../queries";
 import { config } from "../config";
 
 type TrackWithArgs = TrackEventType & {
@@ -13,7 +12,7 @@ export type LoadedEventData = Partial<Record<EventName, TrackWithArgs[]>>;
 export class Analysis {
   eventData: LoadedEventData = {};
   queriedData: LoadedEventData = {};
-  queryObj: queries.QueryObj = new queries.QueryObj(this.eventData);
+  private queryObj = new QueryObj(this.eventData);
   query = this.queryObj.query;
 
   loadFromStorage() {

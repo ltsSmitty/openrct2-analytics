@@ -8,7 +8,7 @@ const trackEvent = (title: EventName, data?: GameActionEventArgs) => {
   console.log("Tracking event: ", title, data);
   analytics.track({
     name: title,
-    properties: data,
+    ...data,
   });
 };
 
