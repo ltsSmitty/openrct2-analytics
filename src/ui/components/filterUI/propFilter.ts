@@ -1,4 +1,4 @@
-import { compute, dropdown, horizontal, label, spinner, toggle } from "openrct2-flexui";
+import { compute, dropdown, horizontal, label } from "openrct2-flexui";
 import { model } from "../../tabs/analysisTab";
 
 export const filterByProp = () => {

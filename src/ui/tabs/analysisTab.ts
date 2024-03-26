@@ -46,8 +46,6 @@ export const model: FilterPropStore = {
 };
 
 export const analysisTab = () => {
-  const eventCount = store<number>(0);
-
   return tab({
     width: 500,
     height: 300,
